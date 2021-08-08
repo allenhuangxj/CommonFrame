@@ -7,17 +7,16 @@ namespace CommonLibrarySharp
 {
     public class Configure
     {
-        private string _filePath = Application.StartupPath + "\\";
-        private string _fileName = "cfg.ini";
+        private string _filePath = Application.StartupPath + "\\cfg.ini";
 
         public Configure()
         {
 
         }
 
-        public Configure(string strFileName)
+        public Configure(string strFilePath)
         {
-            _fileName = strFileName;
+            _filePath = strFilePath;
         }
 
         public string FilePath
@@ -25,14 +24,6 @@ namespace CommonLibrarySharp
             set
             {
                 _filePath = value;
-            }
-        }
-
-        public string FileName
-        {
-            set
-            {
-                _fileName = value;
             }
         }
 
@@ -45,18 +36,18 @@ namespace CommonLibrarySharp
         /// <returns></returns>
         public string ReadConfig(string strAppName, string strKeyName, string strDefault)
         {
-            return ReadConfig(strAppName, strKeyName, strDefault, _filePath + _fileName);
+            return ReadConfig(strAppName, strKeyName, strDefault, _filePath);
         }
 
         public double ReadConfig(string strAppName, string strKeyName, double dDefault)
         {
-            string result = ReadConfig(strAppName, strKeyName, dDefault.ToString(), _filePath + _fileName);
+            string result = ReadConfig(strAppName, strKeyName, dDefault.ToString(), _filePath);
             return StringToDouble(result, dDefault);
         }
 
         public float ReadConfig(string strAppName, string strKeyName, float dDefault)
         {
-            string result = ReadConfig(strAppName, strKeyName, dDefault.ToString(), _filePath + _fileName);
+            string result = ReadConfig(strAppName, strKeyName, dDefault.ToString(), _filePath);
             return StringToFloat(result, dDefault);
         }
 
@@ -76,12 +67,12 @@ namespace CommonLibrarySharp
         /// <returns></returns>
         public int ReadConfig(string strAppName, string strKeyName, int ndefault)
         {
-            return ReadConfig(strAppName, strKeyName, ndefault, _filePath + _fileName);
+            return ReadConfig(strAppName, strKeyName, ndefault, _filePath);
         }
 
         public bool ReadConfig(string strAppName, string strKeyName, bool bdefault)
         {
-            string result = ReadConfig(strAppName, strKeyName, bdefault.ToString(), _filePath + _fileName);
+            string result = ReadConfig(strAppName, strKeyName, bdefault.ToString(), _filePath);
             return StringToBool(result, bdefault);
         }
 
@@ -100,7 +91,7 @@ namespace CommonLibrarySharp
         /// <returns></returns>
         public bool WriteConfig(string strAppName, string strKeyName, string strString)
         {
-            return WritePrivateProfileString(strAppName, strKeyName, strString, _filePath + _fileName);
+            return WritePrivateProfileString(strAppName, strKeyName, strString, _filePath);
         }
 
         public bool WriteConfig(string strAppName, string strKeyName, string strString, string strFilepath)
@@ -117,7 +108,7 @@ namespace CommonLibrarySharp
         /// <returns></returns>
         public bool WriteConfig(string strAppName, string strKeyName, int strString)
         {
-            return WritePrivateProfileString(strAppName, strKeyName, strString.ToString(), _filePath + _fileName);
+            return WritePrivateProfileString(strAppName, strKeyName, strString.ToString(), _filePath);
         }
 
         public bool WriteConfig(string strAppName, string strKeyName, int strString, string strFilepath)
