@@ -80,6 +80,18 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setting\FormMesSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\FormMesSetting.designer.cs">
+      <DependentUpon>FormMesSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\FormPWD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setting\FormPWD.designer.cs">
+      <DependentUpon>FormPWD.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen\FormSplashShow.cs">
@@ -92,6 +104,12 @@
     <Compile Include="WorkProcess.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\FormMesSetting.resx">
+      <DependentUpon>FormMesSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\FormPWD.resx">
+      <DependentUpon>FormPWD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

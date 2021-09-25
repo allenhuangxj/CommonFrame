@@ -38,6 +38,7 @@
             this.button_Stop = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_SN = new System.Windows.Forms.TextBox();
+            this.button_Setting = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,12 +148,26 @@
             this.textBox_SN.TabIndex = 22;
             this.textBox_SN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_SN_KeyPress);
             // 
+            // button_Setting
+            // 
+            this.button_Setting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Setting.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
+            this.button_Setting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_Setting.Location = new System.Drawing.Point(569, 44);
+            this.button_Setting.Name = "button_Setting";
+            this.button_Setting.Size = new System.Drawing.Size(85, 31);
+            this.button_Setting.TabIndex = 27;
+            this.button_Setting.Text = "MES设置";
+            this.button_Setting.UseVisualStyleBackColor = true;
+            this.button_Setting.Click += new System.EventHandler(this.button_Setting_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(859, 561);
+            this.Controls.Add(this.button_Setting);
             this.Controls.Add(this.textBox_SN);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button_Stop);
@@ -188,6 +203,7 @@
         private System.Windows.Forms.Button button_Stop;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox_SN;
+        private System.Windows.Forms.Button button_Setting;
     }
 }
 

@@ -12,6 +12,8 @@ namespace CommonLaserFrameWork
         private static MyJCZ _MarkJcz = new MyJCZ();
         private static PictureBox _pictureBox1;
 
+        private static Configure _configure = new Configure();
+
         // 打开主窗体前的初始化
         public static bool InitForm(PictureBox pictureBox1)
         {
@@ -91,12 +93,14 @@ namespace CommonLaserFrameWork
             try
             {
                 // 加载模板
-                string strEzdPath = dicControlValue["ezd"].ToString();
+                string strEzdPath = _configure.ReadConfig("SET", "EzdModel", "");
                 if (!_MarkJcz.LoadEzdFile(strEzdPath))
                 {
-                    Log.WriteMessage("加载模板失败", true);
+                    Log.WriteMessage("加载模板失败:" + strEzdPath, true);
                     return false;
                 }
+
+                Log.WriteMessage("加载模板成功:" + strEzdPath);
 
                 // 替换打标
                 string strSn = dicControlValue["SN"].ToString();
@@ -127,14 +131,16 @@ namespace CommonLaserFrameWork
         {
             try
             {
-                CheckBeforeMark();
-
-                if (ChangeVariableAndMark(dicControlValue))
+                if (CheckBeforeMark())
                 {
-                    UploadAfterMark();
+                    if (ChangeVariableAndMark(dicControlValue))
+                    {
+                        if (UploadAfterMark())
+                        {
+                            return true;
+                        }
+                    }
                 }
-
-                return true;
             }
             catch (Exception ex)
             {

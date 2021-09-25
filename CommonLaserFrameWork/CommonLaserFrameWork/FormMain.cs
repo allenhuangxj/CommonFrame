@@ -11,14 +11,9 @@ namespace CommonLaserFrameWork
     {
         // 通用读取配置文件
         private Configure _configure = new Configure();
-        // IO
-        private static int _startIO = 4;
-        private static Thread _ThreadIO = null;
         // 流程控制
         private static bool _IsMarking = false;
         private static Object _oLock = new Object();
-        private static bool _bExit = false;
-        private static bool _bManual = false;
 
         public FormMain()
         {
@@ -37,48 +32,14 @@ namespace CommonLaserFrameWork
             ReadConfig();
             if (WorkProcess.InitForm(this.pictureBox1))
             {
-                Log.WriteMessage("启动脚踏检测线程");
-                _ThreadIO = new Thread(ThreadIO);
-                _ThreadIO.Start();
-            }
-
-            Log.WriteMessage(string.Format("开启软件, 脚踏端口为:{0}", _startIO.ToString()));
-        }
-
-        private void ThreadIO()
-        {
-            try
-            {
-                while (!_bExit)
-                {
-                    lock (_oLock)
-                    {
-                        if (_IsMarking)
-                        {
-                            continue;
-                        }
-                    }
-
-                    bool bTrgger = WorkProcess.TreggerReadPort(_startIO);
-                    if (bTrgger || _bManual)
-                    {
-                        string strMsg = bTrgger == true ? "接收到开始打标信号" : "手动触发打标";
-                        Log.WriteMessage(strMsg);
-                        MarkProcess();
-                    }
-
-                    Thread.Sleep(20);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.WriteMessage(string.Format("ThreadIO 捕获到异常:{0}", ex.Message.ToString()), true);
+                Log.WriteMessage("初始化成功");
             }
         }
 
         private void button_hand_Click(object sender, EventArgs e)
         {
-            _bManual = true;
+            Log.WriteMessage("手动点击标刻");
+            MarkProcess();
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -91,9 +52,7 @@ namespace CommonLaserFrameWork
                     return;
                 }
 
-                _bExit = true;
                 _IsMarking = false;
-                _bManual = false;
                 WriteConfig();
                 WorkProcess.CloseForm();
             }
@@ -128,8 +87,8 @@ namespace CommonLaserFrameWork
         {
             if (e.KeyChar == 13)
             {
-                Log.WriteMessage("回车响应");
-                _bManual = true;
+                Log.WriteMessage("回车响应标刻");
+                MarkProcess();
             }
         }
 
@@ -141,7 +100,6 @@ namespace CommonLaserFrameWork
 
         private void ReadConfig()
         {
-            _startIO = _configure.ReadConfig("SET", "StartIO", 4);
             textBox_model.Text = _configure.ReadConfig("SET", "EzdModel", "");
         }
 
@@ -159,7 +117,6 @@ namespace CommonLaserFrameWork
             {
                 this.Invoke((EventHandler)(delegate
                 {
-                    dicControlValue.Add("ezd", textBox_model.Text);
                     dicControlValue.Add("SN", textBox_SN.Text);
                 }));
             }
@@ -189,7 +146,6 @@ namespace CommonLaserFrameWork
             }
             finally
             {
-                _bManual = false;
                 _IsMarking = false;
 
                 this.Invoke((EventHandler)(delegate
@@ -202,5 +158,20 @@ namespace CommonLaserFrameWork
             return false;
         }
 
+        private void button_Setting_Click(object sender, EventArgs e)
+        {
+            FormPWD pwd = new FormPWD();
+            if (pwd.ShowDialog() == DialogResult.OK)
+            {
+                FormMesSetting mes_setting = new FormMesSetting();
+                mes_setting.ShowDialog();
+            }
+
+            this.Invoke((EventHandler)(delegate
+            {
+                textBox_SN.Text = "";
+                textBox_SN.Focus();
+            }));
+        }
     }
 }
