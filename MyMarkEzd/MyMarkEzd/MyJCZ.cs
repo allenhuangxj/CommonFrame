@@ -173,8 +173,15 @@ namespace MyMarkEzd
             MarkJcz.StopMark();
         }
 
-        // 输出信号
-        public void SetOutPort(int nPort, int nState, int nMillisecond)
+        // 输出信号电平
+        public void SetOutPort(int nPort, int nState)
+        {
+            bool bState = nState == 1 ? true : false;
+            MarkJcz.WritePort(nPort, bState);
+        }
+
+        // 输出信号脉冲
+        public void SetOutPortPluse(int nPort, int nState, int nMillisecond)
         {
             bool bState = nState == 1 ? true : false;
             MarkJcz.WritePort(nPort, bState);

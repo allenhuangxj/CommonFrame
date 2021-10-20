@@ -32,8 +32,10 @@
         bool CopyEnt(string strSourceName, string strDesName);
         // 停止标刻
         void StopMark();
-        // 给输出信号
-        void SetOutPort(int nPort, int nState, int nMillisecond);
+        // 给输出信号脉冲
+        void SetOutPortPluse(int nPort, int nState, int nMillisecond);
+        // 输出信号电平
+        void SetOutPort(int nPort, int nState);
         // 检测端口信号
         bool ReadPort(int nPort);
     }
