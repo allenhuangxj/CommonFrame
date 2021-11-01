@@ -1,5 +1,6 @@
 ﻿using CommonLaserFrameWork.SplashScreen;
 using CommonLibrarySharp;
+using MyMarkEzd;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -14,7 +15,10 @@ namespace CommonLaserFrameWork
         // 流程控制
         private static bool _IsMarking = false;
         private static Object _oLock = new Object();
-
+        // 增加脚踏
+        private static MyJCZ _MarkJcz = new MyJCZ();
+        private static bool _exit = false;
+        private static int _start_port = 0;
         public FormMain()
         {
             SplashScreen.SplashScreen.Show(typeof(FormSplashShow));
@@ -33,6 +37,34 @@ namespace CommonLaserFrameWork
             if (WorkProcess.InitForm(this.pictureBox1))
             {
                 Log.WriteMessage("初始化成功");
+                Log.WriteMessage(string.Format("脚踏端口:{0}", _start_port));
+
+                Thread tMark = new Thread(ThreadWork);
+                tMark.Start();
+            }
+        }
+
+        private void ThreadWork()
+        {
+            bool nBegin = false;
+            bool nEnd = false;
+            while (!_exit)
+            {
+                nBegin = _MarkJcz.ReadPort(_start_port);
+
+                if ((nBegin && !nEnd))
+                {
+                    Log.WriteMessage("检测到脚踏信号");
+                    MarkProcess();
+                    nBegin = false;
+                    nEnd = false;
+                    continue;
+                }
+                else
+                {
+                    nEnd = nBegin;
+                }
+                Thread.Sleep(10);
             }
         }
 
@@ -52,6 +84,7 @@ namespace CommonLaserFrameWork
                     return;
                 }
 
+                _exit = true;
                 _IsMarking = false;
                 WriteConfig();
                 WorkProcess.CloseForm();
@@ -101,6 +134,7 @@ namespace CommonLaserFrameWork
         private void ReadConfig()
         {
             textBox_model.Text = _configure.ReadConfig("SET", "EzdModel", "");
+            _start_port = _configure.ReadConfig("IO", "StartPort", 4);
         }
 
         private void WriteConfig()

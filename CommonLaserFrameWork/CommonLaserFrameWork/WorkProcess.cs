@@ -11,7 +11,7 @@ namespace CommonLaserFrameWork
         // 金橙子
         private static MyJCZ _MarkJcz = new MyJCZ();
         private static PictureBox _pictureBox1;
-
+        private static string _SN = "";
         private static Configure _configure = new Configure();
 
         // 打开主窗体前的初始化
@@ -103,8 +103,8 @@ namespace CommonLaserFrameWork
                 Log.WriteMessage("加载模板成功:" + strEzdPath);
 
                 // 替换打标
-                string strSn = dicControlValue["SN"].ToString();
-                _MarkJcz.ChangeTextByName("SN", strSn);
+                Log.WriteMessage(string.Format("替换对象:{0}, 对应的替换内容为:{1}", "SN", _SN));
+                _MarkJcz.ChangeTextByName("SN", _SN);
                 _MarkJcz.ShowPreviewBmp(_pictureBox1);
                 Log.WriteMessage("开始打标");
                 if (_MarkJcz.Mark())
@@ -129,6 +129,13 @@ namespace CommonLaserFrameWork
         // 打标流程
         public static bool MarkProcessImpl(Dictionary<string, string> dicControlValue)
         {
+            _SN = dicControlValue["SN"].ToString();
+            if (string.IsNullOrEmpty(_SN))
+            {
+                Log.WriteMessage("请先扫入条码信息", true);
+                return false;
+            }
+
             try
             {
                 if (CheckBeforeMark())

@@ -44,7 +44,8 @@
             // 
             // textBox_model
             // 
-            this.textBox_model.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBox_model.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_model.ForeColor = System.Drawing.Color.MidnightBlue;
             this.textBox_model.Location = new System.Drawing.Point(60, 11);
             this.textBox_model.Name = "textBox_model";
@@ -54,7 +55,7 @@
             // 
             // button_load
             // 
-            this.button_load.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_load.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_load.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_load.BackgroundImage")));
             this.button_load.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_load.FlatAppearance.BorderSize = 0;
@@ -69,6 +70,9 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
             this.label1.Location = new System.Drawing.Point(4, 15);
@@ -79,7 +83,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox1.Location = new System.Drawing.Point(4, 40);
             this.pictureBox1.Name = "pictureBox1";
@@ -89,7 +95,8 @@
             // 
             // richTextBox_Log
             // 
-            this.richTextBox_Log.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.richTextBox_Log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox_Log.Location = new System.Drawing.Point(537, 81);
             this.richTextBox_Log.Name = "richTextBox_Log";
             this.richTextBox_Log.ReadOnly = true;
@@ -133,6 +140,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(567, 15);
             this.label2.Name = "label2";
@@ -142,6 +150,7 @@
             // 
             // textBox_SN
             // 
+            this.textBox_SN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_SN.Location = new System.Drawing.Point(620, 11);
             this.textBox_SN.Name = "textBox_SN";
             this.textBox_SN.Size = new System.Drawing.Size(227, 21);
@@ -178,8 +187,7 @@
             this.Controls.Add(this.button_load);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(875, 600);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CommonLaser";
