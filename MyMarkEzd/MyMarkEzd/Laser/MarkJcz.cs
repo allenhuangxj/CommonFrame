@@ -836,7 +836,7 @@ namespace Laser_JCZ
                 }
             }
         }
-        public static bool GetBitmapEntParam3(string strEntName, ref double dDpiX, ref double dDpiY, Byte[] bGrayScaleBuff, int nArryLen)
+        public static bool GetBitmapEntParam3(string strEntName, ref double dDpiX, ref double dDpiY, byte[] bGrayScaleBuff, int nArryLen)
         {
             if (!mIsInitLaser)
             {
@@ -858,7 +858,7 @@ namespace Laser_JCZ
 
             return true;
         }
-        public static bool SetBitmapEntParam3(string strEntName, double dDpiX, double dDpiY, Byte[] bGrayScaleBuff, int nArryLen)
+        public static bool SetBitmapEntParam3(string strEntName, double dDpiX, double dDpiY, byte[] bGrayScaleBuff, int nArryLen)
         {
             if (!mIsInitLaser)
             {

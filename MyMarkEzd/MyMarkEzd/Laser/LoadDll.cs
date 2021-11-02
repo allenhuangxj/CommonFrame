@@ -169,10 +169,10 @@ namespace Laser_JCZ
         protected static extern LmcErrCode LMC1_SETENTITYNAME(int nEntityIndex, string strEntName);
 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_GetBitmapEntParam3")]
-        protected static extern LmcErrCode LMC1_GETBITMAPENTPARAM3(string strEntName, ref double dDpiX, ref double dDpiY, Byte[] bGrayScaleBuff);
+        protected static extern LmcErrCode LMC1_GETBITMAPENTPARAM3(string strEntName, ref double dDpiX, ref double dDpiY, byte[] bGrayScaleBuff);
 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_SetBitmapEntParam3")]
-        protected static extern LmcErrCode LMC1_SETBITMAPENTPARAM3(string strEntName, double dDpiX, double dDpiY, Byte[] bGrayScaleBuff);
+        protected static extern LmcErrCode LMC1_SETBITMAPENTPARAM3(string strEntName, double dDpiX, double dDpiY, byte[] bGrayScaleBuff);
 
         [DllImport("MarkEzd", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall, EntryPoint = "lmc1_SetBitmapEntParam2")]
         public static extern LmcErrCode LMC1_SETBITMAPENTPARAM2(string strEntName,

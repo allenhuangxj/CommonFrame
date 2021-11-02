@@ -1,5 +1,6 @@
 ﻿using Laser_JCZ;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -129,32 +130,6 @@ namespace MyMarkEzd
             return false;
         }
 
-        // 检测脚踏
-        public bool TreggerReadPort(int nPort)
-        {
-            DateTime startTime = DateTime.Now;
-            bool nBegin = false;
-            bool nEnd = false;
-            while (true)
-            {
-                nBegin = MarkJcz.ReadPort(nPort);
-                if (nBegin && !nEnd)
-                {
-                    return true;
-                }
-                nEnd = nBegin;
-                // 50毫秒执行超时 (外层线程while间隔大于50ms)
-                if (DateTime.Now.Subtract(startTime).Milliseconds >= 50)
-                {
-                    break;
-                }
-
-                Thread.Sleep(5);
-            }
-
-            return false;
-        }
-
         // 移动对象
         public bool MoveEnt(string pEntName, double dMovex, double dMovey)
         {
@@ -193,6 +168,32 @@ namespace MyMarkEzd
         public bool ReadPort(int nPort)
         {
             return MarkJcz.ReadPort(nPort);
+        }
+
+        // 获取命名对象列表 返回 name-count(命名对应的个数)
+        public Dictionary<string, int> GetEntryNamedCount()
+        {
+            int nCount = MarkJcz.GetEntityCount();
+            Dictionary<string, int> dicName = new Dictionary<string, int>();
+            for (int i = 0; i < nCount; i++)
+            {
+                string strName = "";
+                MarkJcz.GetEntityNameByIndex(i, ref strName);
+                if (!string.IsNullOrEmpty(strName))
+                {
+                    if (dicName.ContainsKey(strName))
+                    {
+                        int nTemp = dicName[strName];
+                        dicName[strName] = ++nTemp;
+                    }
+                    else
+                    {
+                        dicName.Add(strName, 1);
+                    }
+                }
+            }
+
+            return dicName;
         }
 
     }

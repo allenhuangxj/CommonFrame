@@ -1,4 +1,6 @@
-﻿namespace MyMarkEzd
+﻿using System.Collections.Generic;
+
+namespace MyMarkEzd
 {
     public interface IMyJCZ
     {
@@ -24,8 +26,6 @@
         bool RotateEnt(string strEntName, double dx, double dy, double dAngle);
         // 关闭
         bool CloseEZD();
-        // 检测脚踏
-        bool TreggerReadPort(int nPort);
         // 移动对象
         bool MoveEnt(string pEntName, double dMovex, double dMovey);
         // 复制对象
@@ -38,5 +38,7 @@
         void SetOutPort(int nPort, int nState);
         // 检测端口信号
         bool ReadPort(int nPort);
+        // 获取命名对象列表 返回 name-count(命名对应的个数)
+        Dictionary<string, int> GetEntryNamedCount();
     }
 }
