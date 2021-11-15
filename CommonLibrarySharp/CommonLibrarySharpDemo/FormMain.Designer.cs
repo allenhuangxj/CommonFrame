@@ -41,20 +41,24 @@
             this.textBox_ServerIP = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btn_PostJson = new System.Windows.Forms.Button();
+            this.btn_PotsBody = new System.Windows.Forms.Button();
+            this.btn_commonUrl = new System.Windows.Forms.Button();
             this.button_SendMsg = new System.Windows.Forms.Button();
             this.textBox_Send = new System.Windows.Forms.TextBox();
             this.richTextBox_Log = new System.Windows.Forms.RichTextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.btn_commonUrl = new System.Windows.Forms.Button();
-            this.btn_PotsBody = new System.Windows.Forms.Button();
-            this.btn_PostJson = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btn_sections = new System.Windows.Forms.Button();
+            this.btn_keys = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -63,6 +67,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(0, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -193,6 +198,16 @@
             this.tabPage3.Text = "WebService";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(222, 44);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(124, 46);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "传参调用";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(74, 44);
@@ -202,6 +217,48 @@
             this.button2.Text = "helloWorld";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.btn_PostJson);
+            this.tabPage4.Controls.Add(this.btn_PotsBody);
+            this.tabPage4.Controls.Add(this.btn_commonUrl);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(681, 139);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "http 请求";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btn_PostJson
+            // 
+            this.btn_PostJson.Location = new System.Drawing.Point(353, 45);
+            this.btn_PostJson.Name = "btn_PostJson";
+            this.btn_PostJson.Size = new System.Drawing.Size(119, 49);
+            this.btn_PostJson.TabIndex = 0;
+            this.btn_PostJson.Text = "post Json字符串";
+            this.btn_PostJson.UseVisualStyleBackColor = true;
+            this.btn_PostJson.Click += new System.EventHandler(this.btn_PostJson_Click);
+            // 
+            // btn_PotsBody
+            // 
+            this.btn_PotsBody.Location = new System.Drawing.Point(187, 45);
+            this.btn_PotsBody.Name = "btn_PotsBody";
+            this.btn_PotsBody.Size = new System.Drawing.Size(119, 49);
+            this.btn_PotsBody.TabIndex = 0;
+            this.btn_PotsBody.Text = "post表单请求";
+            this.btn_PotsBody.UseVisualStyleBackColor = true;
+            this.btn_PotsBody.Click += new System.EventHandler(this.btn_PotsBody_Click);
+            // 
+            // btn_commonUrl
+            // 
+            this.btn_commonUrl.Location = new System.Drawing.Point(19, 45);
+            this.btn_commonUrl.Name = "btn_commonUrl";
+            this.btn_commonUrl.Size = new System.Drawing.Size(119, 49);
+            this.btn_commonUrl.TabIndex = 0;
+            this.btn_commonUrl.Text = "通用get/post请求";
+            this.btn_commonUrl.UseVisualStyleBackColor = true;
+            this.btn_commonUrl.Click += new System.EventHandler(this.btn_commonUrl_Click);
             // 
             // button_SendMsg
             // 
@@ -229,57 +286,36 @@
             this.richTextBox_Log.TabIndex = 11;
             this.richTextBox_Log.Text = "";
             // 
-            // button3
+            // tabPage5
             // 
-            this.button3.Location = new System.Drawing.Point(222, 44);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(124, 46);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "传参调用";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.tabPage5.Controls.Add(this.btn_keys);
+            this.tabPage5.Controls.Add(this.btn_sections);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(681, 139);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "配置文件测试";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // btn_sections
             // 
-            this.tabPage4.Controls.Add(this.btn_PostJson);
-            this.tabPage4.Controls.Add(this.btn_PotsBody);
-            this.tabPage4.Controls.Add(this.btn_commonUrl);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(681, 139);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "http 请求";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.btn_sections.Location = new System.Drawing.Point(38, 57);
+            this.btn_sections.Name = "btn_sections";
+            this.btn_sections.Size = new System.Drawing.Size(137, 32);
+            this.btn_sections.TabIndex = 0;
+            this.btn_sections.Text = "读取所有sections";
+            this.btn_sections.UseVisualStyleBackColor = true;
+            this.btn_sections.Click += new System.EventHandler(this.btn_sections_Click);
             // 
-            // btn_commonUrl
+            // btn_keys
             // 
-            this.btn_commonUrl.Location = new System.Drawing.Point(19, 45);
-            this.btn_commonUrl.Name = "btn_commonUrl";
-            this.btn_commonUrl.Size = new System.Drawing.Size(119, 49);
-            this.btn_commonUrl.TabIndex = 0;
-            this.btn_commonUrl.Text = "通用get/post请求";
-            this.btn_commonUrl.UseVisualStyleBackColor = true;
-            this.btn_commonUrl.Click += new System.EventHandler(this.btn_commonUrl_Click);
-            // 
-            // btn_PotsBody
-            // 
-            this.btn_PotsBody.Location = new System.Drawing.Point(187, 45);
-            this.btn_PotsBody.Name = "btn_PotsBody";
-            this.btn_PotsBody.Size = new System.Drawing.Size(119, 49);
-            this.btn_PotsBody.TabIndex = 0;
-            this.btn_PotsBody.Text = "post表单请求";
-            this.btn_PotsBody.UseVisualStyleBackColor = true;
-            this.btn_PotsBody.Click += new System.EventHandler(this.btn_PotsBody_Click);
-            // 
-            // btn_PostJson
-            // 
-            this.btn_PostJson.Location = new System.Drawing.Point(353, 45);
-            this.btn_PostJson.Name = "btn_PostJson";
-            this.btn_PostJson.Size = new System.Drawing.Size(119, 49);
-            this.btn_PostJson.TabIndex = 0;
-            this.btn_PostJson.Text = "post Json字符串";
-            this.btn_PostJson.UseVisualStyleBackColor = true;
-            this.btn_PostJson.Click += new System.EventHandler(this.btn_PostJson_Click);
+            this.btn_keys.Location = new System.Drawing.Point(232, 57);
+            this.btn_keys.Name = "btn_keys";
+            this.btn_keys.Size = new System.Drawing.Size(137, 32);
+            this.btn_keys.TabIndex = 0;
+            this.btn_keys.Text = "读取所有keys";
+            this.btn_keys.UseVisualStyleBackColor = true;
+            this.btn_keys.Click += new System.EventHandler(this.btn_keys_Click);
             // 
             // FormMain
             // 
@@ -301,6 +337,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,6 +367,9 @@
         private System.Windows.Forms.Button btn_commonUrl;
         private System.Windows.Forms.Button btn_PotsBody;
         private System.Windows.Forms.Button btn_PostJson;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button btn_keys;
+        private System.Windows.Forms.Button btn_sections;
     }
 }
 

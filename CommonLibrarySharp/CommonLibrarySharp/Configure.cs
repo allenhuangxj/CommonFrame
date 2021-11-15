@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -123,7 +124,7 @@ namespace CommonLibrarySharp
             {
                 return result;
             }
-            if (!Double.TryParse(strValue, out result))
+            if (!double.TryParse(strValue, out result))
             {
                 result = Fail;
             }
@@ -151,7 +152,7 @@ namespace CommonLibrarySharp
             {
                 return result;
             }
-            if (!Int32.TryParse(strValue, out result))
+            if (!int.TryParse(strValue, out result))
             {
                 result = Fail;
             }
@@ -172,9 +173,55 @@ namespace CommonLibrarySharp
             return result;
         }
 
+        #region 获取所有sections keys
+        public List<string> ReadSections()
+        {
+            return ReadSections(_filePath);
+        }
+
+        public List<string> ReadSections(string strFilepath)
+        {
+            List<string> result = new List<string>();
+            Byte[] buf = new Byte[65536];
+            uint len = GetPrivateProfileStringA(null, null, null, buf, buf.Length, strFilepath);
+            int j = 0;
+            for (int i = 0; i < len; i++)
+                if (buf[i] == 0)
+                {
+                    result.Add(Encoding.Default.GetString(buf, j, i - j));
+                    j = i + 1;
+                }
+            return result;
+        }
+
+        public List<string> ReadKeys(string SectionName)
+        {
+            return ReadKeys(SectionName, _filePath);
+        }
+
+        public List<string> ReadKeys(string SectionName, string strFilepath)
+        {
+            List<string> result = new List<string>();
+            Byte[] buf = new Byte[65536];
+            uint len = GetPrivateProfileStringA(SectionName, null, null, buf, buf.Length, strFilepath);
+            int j = 0;
+            for (int i = 0; i < len; i++)
+                if (buf[i] == 0)
+                {
+                    result.Add(Encoding.Default.GetString(buf, j, i - j));
+                    j = i + 1;
+                }
+            return result;
+        }
+        #endregion
+
         [DllImport("Kernel32.dll")]
         private static extern ulong GetPrivateProfileString(string strAppName, string strKeyName, string strDefault,
             StringBuilder sbReturnString, int nSize, string strFileName);
+
+        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString")]
+        private static extern uint GetPrivateProfileStringA(string section, string key,
+            string def, Byte[] retVal, int size, string filePath);
 
         [DllImport("Kernel32.dll")]
         private static extern bool WritePrivateProfileString(string strAppName, string strKeyName, string strString,

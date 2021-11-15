@@ -75,7 +75,7 @@ namespace CommonLibrarySharp
         private HttpWebRequest CreateWebRequest()
         {
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(this.Url);
-            if (this.WSServiceType == WebServiceClient.ServiceType.WCF)
+            if (this.WSServiceType == ServiceType.WCF)
                 webRequest.Headers.Add("SOAPAction", "\"http://tempuri.org/" + this.WCFContractName + "/" + this.WebMethod + "\"");
             else
                 webRequest.Headers.Add("SOAPAction", "\"http://tempuri.org/" + this.WebMethod + "\"");

@@ -189,7 +189,7 @@ namespace CommonLibrarySharpDemo
                 byte[] bLastData = new byte[nLength - 2];
                 Array.Copy(InBytes, 1, bLastData, 0, nLength - 2);
 
-                string strInfo = System.Text.Encoding.Default.GetString(bLastData);
+                string strInfo = Encoding.Default.GetString(bLastData);
                 Log.WriteMessage("截取起始结束符以后的数据为:" + strInfo);
 
                 // 处理业务数据逻辑
@@ -425,5 +425,18 @@ namespace CommonLibrarySharpDemo
         }
 
         #endregion
+
+        private void btn_sections_Click(object sender, EventArgs e)
+        {
+            string v = _configure.ReadConfig("SET", "URL", "");
+            List<string> lstSections = _configure.ReadSections();
+            int i = 0;
+        }
+
+        private void btn_keys_Click(object sender, EventArgs e)
+        {
+            List<string> lstKeys = _configure.ReadKeys("SET");
+            int i = 0;
+        }
     }
 }
