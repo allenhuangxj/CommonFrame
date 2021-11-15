@@ -38,19 +38,6 @@ namespace CommonLaserFrameWork
             return false;
         }
 
-        public static bool TreggerReadPort(int nPort)
-        {
-            try
-            {
-                return _MarkJcz.TreggerReadPort(nPort);
-            }
-            catch (Exception ex)
-            {
-                Log.WriteMessage(string.Format("TreggerReadPort 捕获到异常:{0}", ex.Message.ToString()), true);
-            }
-
-            return false;
-        }
         // 加载模板
         public static bool LoadEzdFile(string strEzdPath)
         {
