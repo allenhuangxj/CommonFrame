@@ -55,6 +55,9 @@
   <PropertyGroup>
     <ApplicationIcon>rocket.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonLibrarySharp">
       <HintPath>lib\CommonLibrarySharp.dll</HintPath>
@@ -123,6 +126,7 @@
     <EmbeddedResource Include="SplashScreen\FormSplashShow.resx">
       <DependentUpon>FormSplashShow.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
