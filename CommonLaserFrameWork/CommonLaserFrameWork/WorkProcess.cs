@@ -74,7 +74,7 @@ namespace CommonLaserFrameWork
         }
 
         // 加载模板替换打标
-        private static bool ChangeVariableAndMark(Dictionary<string, string> dicControlValue)
+        private static bool ChangeVariableAndMark()
         {
             Log.WriteMessage("加载模板并替换打标");
             try
@@ -94,16 +94,9 @@ namespace CommonLaserFrameWork
                 _MarkJcz.ChangeTextByName("SN", _SN);
                 _MarkJcz.ShowPreviewBmp(_pictureBox1);
                 Log.WriteMessage("开始打标");
-                if (_MarkJcz.Mark())
-                {
-                    Log.WriteMessage("打标成功");
-                }
-                else
-                {
-                    Log.WriteMessage("打标失败");
-                }
-
-                return true;
+                bool bRes = _MarkJcz.Mark();
+                Log.WriteMessage(bRes == true ? "打标成功" : "打标失败");
+                return bRes;
             }
             catch (Exception ex)
             {
@@ -127,7 +120,7 @@ namespace CommonLaserFrameWork
             {
                 if (CheckBeforeMark())
                 {
-                    if (ChangeVariableAndMark(dicControlValue))
+                    if (ChangeVariableAndMark())
                     {
                         if (UploadAfterMark())
                         {
@@ -139,10 +132,6 @@ namespace CommonLaserFrameWork
             catch (Exception ex)
             {
                 Log.WriteMessage(string.Format("MarkProcessImpl 捕获到异常:{0}", ex.Message.ToString()), true);
-            }
-            finally
-            {
-
             }
 
             return false;

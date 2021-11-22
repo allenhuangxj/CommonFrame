@@ -38,10 +38,13 @@ namespace CommonLaserFrameWork
             {
                 Log.WriteMessage("初始化成功");
                 Log.WriteMessage(string.Format("脚踏端口:{0}", _start_port));
+                Log.WriteMessage(string.Format("若修改配置文件脚踏端口,重启软件才生效", _start_port));
 
                 Thread tMark = new Thread(ThreadWork);
                 tMark.Start();
             }
+
+            SetFocus();
         }
 
         private void ThreadWork()
@@ -110,6 +113,8 @@ namespace CommonLaserFrameWork
 
                 WorkProcess.LoadEzdFile(textBox_model.Text);
             }
+
+            SetFocus();
         }
         private void FormMain_Shown(object sender, EventArgs e)
         {
@@ -164,15 +169,21 @@ namespace CommonLaserFrameWork
 
         public bool MarkProcess()
         {
+            if (_IsMarking)
+            {
+                Log.WriteMessage("上一个打标流程还未完全结束");
+                return false;
+            }
+
             _IsMarking = true;
             Log.WriteMessage("开始执行打标流程");
 
             try
             {
                 Dictionary<string, string> dicControlValue = GetControlValue();
-                WorkProcess.MarkProcessImpl(dicControlValue);
+                bool bMarkRes = WorkProcess.MarkProcessImpl(dicControlValue);
                 Log.WriteMessage("++++++++++结束本次打标流程++++++++++");
-                return true;
+                return bMarkRes;
             }
             catch (Exception ex)
             {
@@ -181,12 +192,7 @@ namespace CommonLaserFrameWork
             finally
             {
                 _IsMarking = false;
-
-                this.Invoke((EventHandler)(delegate
-                {
-                    textBox_SN.Text = "";
-                    textBox_SN.Focus();
-                }));
+                SetFocus();
             }
 
             return false;
@@ -200,7 +206,11 @@ namespace CommonLaserFrameWork
                 FormMesSetting mes_setting = new FormMesSetting();
                 mes_setting.ShowDialog();
             }
+            SetFocus();
+        }
 
+        private void SetFocus()
+        {
             this.Invoke((EventHandler)(delegate
             {
                 textBox_SN.Text = "";
