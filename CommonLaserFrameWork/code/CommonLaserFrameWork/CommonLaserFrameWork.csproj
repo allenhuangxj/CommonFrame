@@ -141,4 +141,14 @@
     <Content Include="rocket.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy $(ProjectDir)\lib\NLog.config $(TargetDir)  /S /Y</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)\lib\CommonLibrarySharp.dll  $(ProjectDir)\..\..\publish  /S /Y
+xcopy $(ProjectDir)\lib\MyMarkEzd.dll  $(ProjectDir)\..\..\publish  /S /Y
+xcopy $(ProjectDir)\lib\NLog.config  $(ProjectDir)\..\..\publish  /S /Y
+xcopy $(ProjectDir)\lib\NLog.dll  $(ProjectDir)\..\..\publish  /S /Y
+xcopy  $(TargetDir)\$(TargetFileName)   $(ProjectDir)\..\..\publish  /S /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
