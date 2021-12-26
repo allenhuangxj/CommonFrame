@@ -16,13 +16,15 @@ namespace MyMarkEzd
         bool Mark(bool bFly);
         // 选择对象打标
         bool MarkEntity(string strEntityName);
+        // 旋转偏移整个打标模板
+        bool RotateAllEzdFile(double dMoveX, double dMoveY, double dCenterX, double dCenterY, double dRotateAng);
         // 获取错误码
         string GetLastError();
         // 按对象中心旋转 指定角度
         bool CenterRotateEnt(string strEntName, double dAngle);
         // 获取对象中心坐标
         bool GetCenterPoint(string strEntityName, out double dx, out double dy);
-        // 按指定坐标旋转
+        // 旋转对象
         bool RotateEnt(string strEntName, double dx, double dy, double dAngle);
         // 关闭
         bool CloseEZD();

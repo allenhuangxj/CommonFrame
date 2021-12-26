@@ -14,7 +14,6 @@ namespace CommonLaserFrameWork
         private Configure _configure = new Configure();
         // 流程控制
         private static bool _IsMarking = false;
-        private static Object _oLock = new Object();
         // 增加脚踏
         private static MyJCZ _MarkJcz = new MyJCZ();
         private static bool _exit = false;
@@ -34,11 +33,11 @@ namespace CommonLaserFrameWork
         private void FormMain_Load(object sender, EventArgs e)
         {
             ReadConfig();
-            if (WorkProcess.InitForm(this.pictureBox1))
+            if (WorkProcess.InitForm(this.pictureBox_Preview))
             {
                 Log.WriteMessage("初始化成功");
                 Log.WriteMessage(string.Format("脚踏端口:{0}", _start_port));
-                Log.WriteMessage(string.Format("若修改配置文件脚踏端口,重启软件才生效", _start_port));
+                Log.WriteMessage(string.Format("若修改配置文件脚踏端口,需重启软件生效", _start_port));
 
                 Thread tMark = new Thread(ThreadWork);
                 tMark.Start();

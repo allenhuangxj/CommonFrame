@@ -28,31 +28,25 @@ namespace Laser_JCZ
         LMC1_ERR_STATUE = 19,
         LMC1_ERR_PARAM = 20,
         LMC1_ERR_BRAND=21,
-        LMC1_ERROR_NOEZDFILE=22,
-        LMC1_ERROR_NOINIT=23,
-        LMC1_ERROR_OUTOFPORTRANGE=24,
-        LMC1_ERROR_NOFINDMARKEZD=25,
-        LMC1_ERROR_NOUSBDOG = 80
+        LMC1_ERROR_NOEZDFILE=80,
+        LMC1_ERROR_OUTOFPORTRANGE=81,
+        LMC1_ERROR_NOFINDMARKEZD=82,
+        LMC1_ERROR_NOUSBDOG = 83
     }
     #endregion
 
     public class LoadDll
     {
-        /*******************************************初始化******************************************/
-
+        // 初始化
         [DllImport("MarkEzd.dll", CharSet=CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_Initial2")]
         protected static extern LmcErrCode LMC1_INITIAL(string strEzCadPath, int bTestMode);
-
-        /****************************************停止关闭*******************************************/
-
+        // 关闭
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_Close")]
         protected static extern LmcErrCode LMC1_CLOSE();
-
+        // 停止标刻
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_StopMark")]
         protected static extern LmcErrCode LMC1_STOPMARK();
-
-        /****************************************文件保存,添加及加载*******************************************/
-
+        // 加载模板
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_LoadEzdFile")]
         protected static extern LmcErrCode LMC1_LOADEZDFILE(string strFileName);
         
@@ -129,9 +123,25 @@ namespace Laser_JCZ
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall, EntryPoint = "lmc1_MoveEnt")]
         protected static extern LmcErrCode LMC1_MOVEENT(string pEntName, double dMovex, double dMovey);
 
+        /// <summary>
+        /// 对数据库中指定名称的对象进行旋转变换
+        /// dCenx旋转中心的x坐标
+        /// dCeny旋转中心的y坐标      
+        /// dAngle为旋转角度,单位为弧度值
+        /// </summary> 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_RotateEnt")]
         protected static extern LmcErrCode LMC1_ROTATEENT(string strEntName, double dCenx, double dCeny, double dAngle);
 
+        /// <summary>
+        /// 设置数据库的所有对象的旋转参数,不影响数据的显示,只是加工时才对对象进行旋转
+        /// dMoveX x方向移动距离
+        /// dMoveY y方向移动距离
+        /// dCenterX旋转中心的x坐标
+        /// dCenterY旋转中心的y坐标      
+        /// dRotateAng为旋转角度,单位为弧度值
+        /// </summary> 
+        [DllImport("MarkEzd", EntryPoint = "lmc1_SetRotateMoveParam", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public static extern LmcErrCode LMC1_SETROTATEMOVEPARAM(double dMoveX, double dMoveY, double dCenterX, double dCenterY, double dRotateAng);
         //两两群组 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_GroupEnt")]
         protected static extern LmcErrCode LMC1_GROUPENT(string strEntName1, string strEntName2, string strNewGroupName, int nPenNo);
@@ -229,9 +239,17 @@ namespace Laser_JCZ
         protected static extern LmcErrCode LMC1_GETOUTPORT(ref int nData);
 
         /**************************************参数设置***************************************************/
-
+        /// <summary>
+        /// 得到设备参数配置对话框  
+        /// </summary> 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_SetDevCfg")]
         protected static extern LmcErrCode LMC1_SETDEVCFG();
+
+        /// <summary>
+        /// 得到设备参数配置对话框+扩展轴  
+        /// </summary> 
+        [DllImport("MarkEzd", EntryPoint = "lmc1_SetDevCfg2", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        protected static extern LmcErrCode LMC1_SETDEVCFG2(bool bAxisShow0, bool bAxisShow1);
 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_GetPenParam")]
         protected static extern LmcErrCode LMC1_GETPENPARAM(int nPenNo,//要设置的笔号(0-255)					 
@@ -347,8 +365,5 @@ namespace Laser_JCZ
 
         [DllImport("gdi32.dll")]
         protected static extern bool DeleteObject(IntPtr hObject);
-
-        [DllImport("user32.dll",EntryPoint="PostMessage",CharSet = CharSet.Auto,CallingConvention=CallingConvention.Winapi)]
-        protected static extern bool POSTMESSAGE(IntPtr hwnd, int msg, uint wParam, uint lParam);
     }
 }

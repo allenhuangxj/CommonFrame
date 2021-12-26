@@ -63,11 +63,6 @@ namespace Laser_JCZ
                         strErroeMessage = "用户停止";
                         break;
                     }
-                case LmcErrCode.LMC1_ERR_NOFINDFONT:
-                    {
-                        strErroeMessage = "找不到该实体";
-                        break;
-                    }
                 case LmcErrCode.LMC1_ERR_UNKNOW:
                     {
                         strErroeMessage = "不明错误";
@@ -78,9 +73,44 @@ namespace Laser_JCZ
                         strErroeMessage = "超时";
                         break;
                     }
+                case LmcErrCode.LMC1_ERR_NOINITIAL:
+                    {
+                        strErroeMessage = "未初始化";
+                        break;
+                    }
+                case LmcErrCode.LMC1_ERR_READFILE:
+                    {
+                        strErroeMessage = "读文件错误";
+                        break;
+                    }
+                case LmcErrCode.LMC1_ERR_OWENWNDNULL:
+                    {
+                        strErroeMessage = "窗口为空";
+                        break;
+                    }
+                case LmcErrCode.LMC1_ERR_NOFINDFONT:
+                    {
+                        strErroeMessage = "找不到指定名称的字体";
+                        break;
+                    }
+                case LmcErrCode.LMC1_ERR_PENNO:
+                    {
+                        strErroeMessage = "错误的笔号";
+                        break;
+                    }
+                case LmcErrCode.LMC1_ERR_NOTTEXT:
+                    {
+                        strErroeMessage = "指定名称的对象不是文本对象";
+                        break;
+                    }
                 case LmcErrCode.LMC1_ERR_SAVEFILE:
                     {
                         strErroeMessage = "保存文件失败";
+                        break;
+                    }
+                case LmcErrCode.LMC1_ERR_NOFINDENT:
+                    {
+                        strErroeMessage = "找不到指定对象";
                         break;
                     }
                 case LmcErrCode.LMC1_ERR_STATUE:
@@ -88,9 +118,14 @@ namespace Laser_JCZ
                         strErroeMessage = "当前状态下不能执行此操作";
                         break;
                     }
+                case LmcErrCode.LMC1_ERR_PARAM:
+                    {
+                        strErroeMessage = "错误的执行参数";
+                        break;
+                    }
                 case LmcErrCode.LMC1_ERR_BRAND:
                     {
-                        strErroeMessage = "未连接HGLASER打标卡";
+                        strErroeMessage = "错误的硬件参数";
                         break;
                     }
                 case LmcErrCode.LMC1_ERROR_NOEZDFILE:
@@ -98,14 +133,14 @@ namespace Laser_JCZ
                         strErroeMessage = "Ezd文件路径不存在";
                         break;
                     }
-                case LmcErrCode.LMC1_ERROR_NOINIT:
+                case LmcErrCode.LMC1_ERROR_OUTOFPORTRANGE:
                     {
-                        strErroeMessage = "打标卡未初始化";
+                        strErroeMessage = "端口设置超出0-15范围";
                         break;
                     }
                 case LmcErrCode.LMC1_ERROR_NOFINDMARKEZD:
                     {
-                        strErroeMessage = "文件Markezd.dll丢失";
+                        strErroeMessage = "未找到二次开发库MarkEzd.dll";
                         break;
                     }
                 case LmcErrCode.LMC1_ERROR_NOUSBDOG:
@@ -145,7 +180,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             if (!System.IO.File.Exists(strFile))
@@ -172,7 +207,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -194,7 +229,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             if (strFileName == "")
@@ -229,7 +264,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -258,7 +293,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -296,7 +331,7 @@ namespace Laser_JCZ
 
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -349,7 +384,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -388,7 +423,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -407,7 +442,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -433,7 +468,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -466,7 +501,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -482,11 +517,32 @@ namespace Laser_JCZ
             }
         }
 
+        // 旋转偏移整个ezd图档
+        public static bool SetRotateMoveParam(double dMoveX, double dMoveY, double dCenterX, double dCenterY, double dRotateAng)
+        {
+            if (!mIsInitLaser)
+            {
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
+                return false;
+            }
+            lock (ObjectLock)
+            {
+                LmcErrCode Ret = LMC1_SETROTATEMOVEPARAM(dMoveX, dMoveY, dCenterX, dCenterY, dRotateAng);
+                if (LmcErrCode.LMC1_ERR_SUCCESS == Ret)
+                    return true;
+                else
+                {
+                    mLastError = Ret;
+                    return false;
+                }
+            }
+        }
+
         public static bool RoTateEnt(string strEntName, double dAngle)
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             double dCenx = 0; double dCeny = 0;
@@ -503,11 +559,12 @@ namespace Laser_JCZ
                 }
             }
         }
+
         public static bool GroupEnt(string strEntName1, string strEntName2, string strNewGroupName, int nPenNo)
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -527,7 +584,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -547,7 +604,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -563,7 +620,7 @@ namespace Laser_JCZ
             }
 
         }
-        public static void ShowPreviewBmp(System.Windows.Forms.PictureBox pictureBox)
+        public static void ShowPreviewBmp(PictureBox pictureBox)
         {
             if (!mIsInitLaser)
             {
@@ -597,7 +654,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -617,7 +674,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -639,7 +696,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -661,7 +718,7 @@ namespace Laser_JCZ
 
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             char[] strTemp = new char[256];
@@ -709,7 +766,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return 0;
             }
             lock (ObjectLock)
@@ -723,7 +780,7 @@ namespace Laser_JCZ
 
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -759,7 +816,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -788,7 +845,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -818,7 +875,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -840,7 +897,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -862,7 +919,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1009,7 +1066,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1032,7 +1089,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             nValue = 0;
@@ -1052,7 +1109,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             int nState = 0;
@@ -1079,7 +1136,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             if (nPort < 0 || nPort > 15)
@@ -1123,7 +1180,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             int nFly = 0;
@@ -1149,7 +1206,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
 
@@ -1200,7 +1257,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1221,7 +1278,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1241,7 +1298,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1261,7 +1318,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1282,7 +1339,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1302,7 +1359,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1322,7 +1379,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)
@@ -1343,7 +1400,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             LmcErrCode Ret = LMC1_CLOSE();
@@ -1363,7 +1420,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return;
             }
             LmcErrCode Ret = LMC1_STOPMARK();
@@ -1380,7 +1437,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return -1;
             }
             return LMC1_GETAXISCOORPULSE(nAxis);
@@ -1389,7 +1446,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             LmcErrCode Ret = LMC1_AXISMOVETOPULSE(nAxis, nPulse);
@@ -1404,7 +1461,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             LmcErrCode Ret = LMC1_RESET(nAxis1, nAxis2);
@@ -1419,7 +1476,7 @@ namespace Laser_JCZ
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return -1;
             }
 
@@ -1506,16 +1563,11 @@ namespace Laser_JCZ
             }
         }
 
-        public static bool PostMessage(IntPtr ptr, int msg, uint wParam, uint lParam)
-        {
-            return POSTMESSAGE(ptr, msg, wParam, lParam);
-        }
-
         public static bool CopyEnt(string strSourceName, string strDesName)
         {
             if (!mIsInitLaser)
             {
-                mLastError = LmcErrCode.LMC1_ERROR_NOINIT;
+                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
                 return false;
             }
             lock (ObjectLock)

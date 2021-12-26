@@ -32,14 +32,14 @@
             this.textBox_model = new System.Windows.Forms.TextBox();
             this.button_load = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_Preview = new System.Windows.Forms.PictureBox();
             this.richTextBox_Log = new System.Windows.Forms.RichTextBox();
             this.button_hand = new System.Windows.Forms.Button();
             this.button_Stop = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_SN = new System.Windows.Forms.TextBox();
             this.button_Setting = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Preview)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox_model
@@ -81,17 +81,17 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "打标模板:";
             // 
-            // pictureBox1
+            // pictureBox_Preview
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pictureBox_Preview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox1.Location = new System.Drawing.Point(4, 40);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(527, 516);
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox_Preview.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.pictureBox_Preview.Location = new System.Drawing.Point(4, 40);
+            this.pictureBox_Preview.Name = "pictureBox_Preview";
+            this.pictureBox_Preview.Size = new System.Drawing.Size(527, 516);
+            this.pictureBox_Preview.TabIndex = 17;
+            this.pictureBox_Preview.TabStop = false;
             // 
             // richTextBox_Log
             // 
@@ -182,7 +182,7 @@
             this.Controls.Add(this.button_Stop);
             this.Controls.Add(this.button_hand);
             this.Controls.Add(this.richTextBox_Log);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox_Preview);
             this.Controls.Add(this.textBox_model);
             this.Controls.Add(this.button_load);
             this.Controls.Add(this.label1);
@@ -194,7 +194,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Preview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +205,7 @@
         private System.Windows.Forms.TextBox textBox_model;
         private System.Windows.Forms.Button button_load;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox_Preview;
         private System.Windows.Forms.RichTextBox richTextBox_Log;
         private System.Windows.Forms.Button button_hand;
         private System.Windows.Forms.Button button_Stop;

@@ -77,6 +77,17 @@ namespace MyMarkEzd
             return false;
         }
 
+        // 旋转偏移整个打标模板
+        public bool RotateAllEzdFile(double dMoveX, double dMoveY, double dCenterX, double dCenterY, double dRotateAng)
+        {
+            if (MarkJcz.SetRotateMoveParam(dMoveX, dMoveY, dCenterX, dCenterY, dRotateAng))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         // 按对象中心旋转 指定角度
         public bool CenterRotateEnt(string strEntName, double dAngle)
         {
@@ -108,7 +119,12 @@ namespace MyMarkEzd
             return false;
         }
 
-        // 按指定坐标旋转
+        /// <summary>
+        /// 对数据库中指定名称的对象进行旋转变换
+        /// dCenx旋转中心的x坐标
+        /// dCeny旋转中心的y坐标      
+        /// dAngle为旋转角度,单位为弧度值
+        /// </summary> 
         public bool RotateEnt(string strEntName, double dx, double dy, double dAngle)
         {
             if (MarkJcz.RoTateEnt(strEntName, dx, dy, dAngle))
