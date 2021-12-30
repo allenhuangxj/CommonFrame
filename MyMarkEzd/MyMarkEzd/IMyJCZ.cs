@@ -32,6 +32,8 @@ namespace MyMarkEzd
         bool MoveEnt(string pEntName, double dMovex, double dMovey);
         // 复制对象
         bool CopyEnt(string strSourceName, string strDesName);
+        // 删除对象
+        bool DeleteEnt(string strEntName);
         // 停止标刻
         void StopMark();
         // 给输出信号脉冲

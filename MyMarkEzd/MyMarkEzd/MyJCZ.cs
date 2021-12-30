@@ -158,6 +158,12 @@ namespace MyMarkEzd
             return MarkJcz.CopyEnt(strSourceName, strDesName);
         }
 
+        // 删除对象
+        public bool DeleteEnt(string strEntName)
+        {
+            return MarkJcz.DeleteEnt(strEntName);
+        }
+
         // 停止标刻
         public void StopMark()
         {
