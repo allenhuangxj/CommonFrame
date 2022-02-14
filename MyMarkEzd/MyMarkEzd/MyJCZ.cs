@@ -218,6 +218,12 @@ namespace MyMarkEzd
             return dicName;
         }
 
+        // 保存模板
+        public bool SaveEzdFile(string strFileName)
+        {
+            return MarkJcz.SaveFile(strFileName);
+        }
+
     }
 }
 

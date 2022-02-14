@@ -248,8 +248,8 @@ namespace Laser_JCZ
                     return false;
                 }
             }
-
         }
+
         //对象操作
         public static bool DeleteAllEnt()
         {

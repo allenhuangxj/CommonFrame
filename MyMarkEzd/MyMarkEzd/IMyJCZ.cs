@@ -44,5 +44,7 @@ namespace MyMarkEzd
         bool ReadPort(int nPort);
         // 获取命名对象列表 返回 name-count(命名对应的个数)
         Dictionary<string, int> GetEntryNamedCount();
+        // 保存模板
+        bool SaveEzdFile(string strFileName);
     }
 }
