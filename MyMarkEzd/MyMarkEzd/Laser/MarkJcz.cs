@@ -739,7 +739,7 @@ namespace Laser_JCZ
             }
 
         }
-        public static bool GetTextByName(string strEntName, string strValue)
+        public static bool GetTextByName(string strEntName, ref string strValue)
         {
 
             char[] chEnt = new char[256];
@@ -749,7 +749,8 @@ namespace Laser_JCZ
 
                 if (LmcErrCode.LMC1_ERR_SUCCESS == Ret)
                 {
-                    strValue = chEnt.ToString();
+                    string strTempValue = new string(chEnt);
+                    strValue = strTempValue.Trim("\0".ToCharArray());
                     return true;
                 }
                 else

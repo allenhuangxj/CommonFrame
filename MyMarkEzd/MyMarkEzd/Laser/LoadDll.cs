@@ -117,7 +117,7 @@ namespace Laser_JCZ
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_CopyEnt")]
         protected static extern LmcErrCode LMC1_COPYENT(string strEntName, string strNewName);
 
-        [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall, EntryPoint = "lmc1_GetTextByName")]
+        [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl, EntryPoint = "lmc1_GetTextByName")]
         protected static extern LmcErrCode LMC1_GETTEXTBYNAME(string pEntName, char[] strText);
 
         [DllImport("MarkEzd.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.StdCall, EntryPoint = "lmc1_MoveEnt")]

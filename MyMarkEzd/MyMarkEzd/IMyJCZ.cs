@@ -10,6 +10,8 @@ namespace MyMarkEzd
         bool LoadEzdFile(string strEzd);
         // 替换打标内容
         bool ChangeTextByName(string strName, string strText);
+        // 获取打标内容
+        bool GetTextByName(string strName, ref string strText);
         // 预览
         void ShowPreviewBmp(System.Windows.Forms.PictureBox pictureBox);
         // 打标

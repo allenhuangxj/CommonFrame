@@ -49,6 +49,17 @@ namespace MyMarkEzd
             return false;
         }
 
+        // 获取打标内容
+        public bool GetTextByName(string strName, ref string strText)
+        {
+            if (MarkJcz.GetTextByName(strName, ref strText))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         // 预览
         public void ShowPreviewBmp(System.Windows.Forms.PictureBox pictureBox)
         {
