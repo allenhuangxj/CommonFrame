@@ -91,7 +91,7 @@ namespace CommonLibrarySharp
             // 起始符自行在外头根据返回的数据判断
 
             // 如果没有设置结束符 或者读取到结束符标志
-            if (m_EndChar == 0 || (Array.IndexOf(ReDatas, m_EndChar) > 0))
+            if (m_EndChar == 0 || (Array.IndexOf(ReDatas, m_EndChar) >= 0))
             {
                 m_port.DiscardInBuffer();
                 m_port.DiscardOutBuffer();

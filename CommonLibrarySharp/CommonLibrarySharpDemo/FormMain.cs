@@ -98,7 +98,7 @@ namespace CommonLibrarySharpDemo
                 // 设置结束符
                 if (checkBox1.Checked == true)
                 {
-                    m_SerialPort.End = 0x03;
+                    m_SerialPort.End = 0x0D;
                 }
                 else
                 {
