@@ -42,8 +42,8 @@ namespace MyMarkEzd
         void SetOutPortPluse(int nPort, int nState, int nMillisecond);
         // 输出信号电平
         void SetOutPort(int nPort, int nState);
-        // 检测端口信号
-        bool ReadPort(int nPort);
+        // 获取输入端口数值
+        bool ReadInPortValue(ref int nInputValue);
         // 获取命名对象列表 返回 name-count(命名对应的个数)
         Dictionary<string, int> GetEntryNamedCount();
         // 保存模板

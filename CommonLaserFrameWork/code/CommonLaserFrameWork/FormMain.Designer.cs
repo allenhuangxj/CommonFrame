@@ -50,7 +50,7 @@
             this.textBox_model.Location = new System.Drawing.Point(60, 11);
             this.textBox_model.Name = "textBox_model";
             this.textBox_model.ReadOnly = true;
-            this.textBox_model.Size = new System.Drawing.Size(451, 21);
+            this.textBox_model.Size = new System.Drawing.Size(636, 21);
             this.textBox_model.TabIndex = 15;
             // 
             // button_load
@@ -60,7 +60,7 @@
             this.button_load.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button_load.FlatAppearance.BorderSize = 0;
             this.button_load.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_load.Location = new System.Drawing.Point(517, 8);
+            this.button_load.Location = new System.Drawing.Point(702, 8);
             this.button_load.Name = "button_load";
             this.button_load.Size = new System.Drawing.Size(26, 26);
             this.button_load.TabIndex = 14;
@@ -89,7 +89,7 @@
             this.pictureBox_Preview.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.pictureBox_Preview.Location = new System.Drawing.Point(4, 40);
             this.pictureBox_Preview.Name = "pictureBox_Preview";
-            this.pictureBox_Preview.Size = new System.Drawing.Size(527, 516);
+            this.pictureBox_Preview.Size = new System.Drawing.Size(712, 694);
             this.pictureBox_Preview.TabIndex = 17;
             this.pictureBox_Preview.TabStop = false;
             // 
@@ -97,10 +97,10 @@
             // 
             this.richTextBox_Log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox_Log.Location = new System.Drawing.Point(537, 81);
+            this.richTextBox_Log.Location = new System.Drawing.Point(722, 81);
             this.richTextBox_Log.Name = "richTextBox_Log";
             this.richTextBox_Log.ReadOnly = true;
-            this.richTextBox_Log.Size = new System.Drawing.Size(319, 475);
+            this.richTextBox_Log.Size = new System.Drawing.Size(319, 653);
             this.richTextBox_Log.TabIndex = 18;
             this.richTextBox_Log.Text = "";
             // 
@@ -112,7 +112,7 @@
             this.button_hand.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button_hand.Image = ((System.Drawing.Image)(resources.GetObject("button_hand.Image")));
             this.button_hand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_hand.Location = new System.Drawing.Point(773, 40);
+            this.button_hand.Location = new System.Drawing.Point(958, 40);
             this.button_hand.Name = "button_hand";
             this.button_hand.Size = new System.Drawing.Size(74, 35);
             this.button_hand.TabIndex = 19;
@@ -129,7 +129,7 @@
             this.button_Stop.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button_Stop.Image = ((System.Drawing.Image)(resources.GetObject("button_Stop.Image")));
             this.button_Stop.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_Stop.Location = new System.Drawing.Point(681, 40);
+            this.button_Stop.Location = new System.Drawing.Point(866, 40);
             this.button_Stop.Name = "button_Stop";
             this.button_Stop.Size = new System.Drawing.Size(72, 35);
             this.button_Stop.TabIndex = 20;
@@ -142,7 +142,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(567, 15);
+            this.label2.Location = new System.Drawing.Point(752, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 12);
             this.label2.TabIndex = 21;
@@ -151,7 +151,7 @@
             // textBox_SN
             // 
             this.textBox_SN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_SN.Location = new System.Drawing.Point(620, 11);
+            this.textBox_SN.Location = new System.Drawing.Point(805, 11);
             this.textBox_SN.Name = "textBox_SN";
             this.textBox_SN.Size = new System.Drawing.Size(227, 21);
             this.textBox_SN.TabIndex = 22;
@@ -162,7 +162,7 @@
             this.button_Setting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Setting.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.button_Setting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_Setting.Location = new System.Drawing.Point(569, 44);
+            this.button_Setting.Location = new System.Drawing.Point(754, 44);
             this.button_Setting.Name = "button_Setting";
             this.button_Setting.Size = new System.Drawing.Size(85, 31);
             this.button_Setting.TabIndex = 27;
@@ -175,7 +175,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(859, 561);
+            this.ClientSize = new System.Drawing.Size(1044, 739);
             this.Controls.Add(this.button_Setting);
             this.Controls.Add(this.textBox_SN);
             this.Controls.Add(this.label2);
@@ -187,7 +187,7 @@
             this.Controls.Add(this.button_load);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(875, 600);
+            this.MinimumSize = new System.Drawing.Size(1060, 778);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CommonLaser";

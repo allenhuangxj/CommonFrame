@@ -197,10 +197,10 @@ namespace MyMarkEzd
             MarkJcz.WritePort(nPort, !bState);
         }
 
-        // 检测端口信号
-        public bool ReadPort(int nPort)
+        // 获取输入端口数值
+        public bool ReadInPortValue(ref int nInputValue)
         {
-            return MarkJcz.ReadPort(nPort);
+            return MarkJcz.ReadPort(ref nInputValue);
         }
 
         // 获取命名对象列表 返回 name-count(命名对应的个数)

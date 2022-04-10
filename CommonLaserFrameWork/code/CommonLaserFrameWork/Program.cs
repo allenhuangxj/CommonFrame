@@ -1,4 +1,4 @@
-﻿using CommonLibrarySharp;
+﻿using CommonLibrarySharp.WriteLog;
 using System;
 using System.Threading;
 using System.Windows.Forms;
@@ -23,7 +23,7 @@ namespace CommonLaserFrameWork
                 Application.ThreadException += Application_ThreadException;
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-                // 自行根据项目添加加密狗
+                // 自行根据项目添加硬件加密狗或者软件加密狗判断
                 Application.Run(new FormMain());
             }
             else

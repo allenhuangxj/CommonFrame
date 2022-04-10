@@ -1,4 +1,11 @@
-﻿using CommonLibrarySharp;
+﻿using CommonLibrarySharp.AccessDB;
+using CommonLibrarySharp.Cfg;
+using CommonLibrarySharp.ComPort;
+using CommonLibrarySharp.http;
+using CommonLibrarySharp.Modbus;
+using CommonLibrarySharp.Tcp;
+using CommonLibrarySharp.Web;
+using CommonLibrarySharp.WriteLog;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -430,13 +437,141 @@ namespace CommonLibrarySharpDemo
         {
             string v = _configure.ReadConfig("SET", "URL", "");
             List<string> lstSections = _configure.ReadSections();
-            int i = 0;
         }
 
         private void btn_keys_Click(object sender, EventArgs e)
         {
             List<string> lstKeys = _configure.ReadKeys("SET");
-            int i = 0;
         }
+
+
+        #region  modbus 测试
+        ModbusHelper _modbus_helper = null;
+        private void button_connect_modbus_Click(object sender, EventArgs e)
+        {
+            _modbus_helper = new ModbusTcp(textBox_Modbus_IP.Text, Convert.ToInt32(textBox_Modbus_port.Text), Convert.ToInt32(textBox_Modbus_slaveNo.Text));
+        }
+
+        private void button_write_float_Click(object sender, EventArgs e)
+        {
+            float fValue = -1.24F;
+            _modbus_helper.WriteFloat((ushort)0, fValue);
+        }
+
+        private void button_read_float_Click(object sender, EventArgs e)
+        {
+            float fValue = 0.0F;
+            _modbus_helper.ReadFloat((ushort)0, ref fValue);
+            MessageBox.Show(fValue.ToString());
+        }
+
+        private void button_write_str_Click(object sender, EventArgs e)
+        {
+            string strValue = "ABCDEF";
+            _modbus_helper.WriteString(4, strValue, (ushort)strValue.Length);
+        }
+
+        private void button_read_str_Click(object sender, EventArgs e)
+        {
+            string strValue = "";
+            _modbus_helper.ReadString(4, ref strValue, 8);
+            MessageBox.Show(strValue.ToString());
+        }
+
+        private void button_write_ushort_Click(object sender, EventArgs e)
+        {
+            ushort uValue = 45;
+            _modbus_helper.WriteUshort(8, uValue);
+        }
+
+        private void button_read_ushort_Click(object sender, EventArgs e)
+        {
+            ushort uValue = 0;
+            _modbus_helper.ReadUshort(8, ref uValue);
+            MessageBox.Show(uValue.ToString());
+        }
+
+        private void button_write_int_Click(object sender, EventArgs e)
+        {
+            int nValue = -1222;
+            _modbus_helper.WriteInt(10, nValue);
+        }
+
+        private void button_read_int_Click(object sender, EventArgs e)
+        {
+            int nValue = 0;
+            _modbus_helper.ReadInt(10, ref nValue);
+            MessageBox.Show(nValue.ToString());
+        }
+        #endregion
+
+
+        #region access 数据库测试
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // 不传默认为当前路径下的 data.mdb文件， 传的话按传的数据库路径为准
+            string strDbPath = "";
+            AccessHelper.ConnectToDatabase();
+        }
+
+        private bool SaveData(string strBarcode)
+        {
+            string strTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            return AccessHelper.ExecuteNonQuery(string.Format("insert into records values('{0}', '{1}')", strBarcode, Convert.ToDateTime(strTime)));
+        }
+
+        private bool IsExist(string strBarcode)
+        {
+            string strSql = String.Format("select * from records where code ='{0}'", strBarcode);
+            bool bExist = false;
+            if (!AccessHelper.IsExist(strSql, ref bExist))
+            {
+                Log.WriteMessage("查询失败:" + strSql, true);
+                return false;
+            }
+            return bExist;
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string strBarcode = "123456";
+            if (SaveData(strBarcode))
+            {
+                Log.WriteMessage("保存数据成功");
+            }
+            else
+            {
+                Log.WriteMessage("保存数据失败", true);
+            }
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string strBarcode = "123456";
+            if (IsExist(strBarcode))
+            {
+                Log.WriteMessage(string.Format("数据已经存在 {0}", strBarcode));
+            }
+            else
+            {
+                Log.WriteMessage(string.Format("数据不存在 {0}", strBarcode));
+            }
+
+            strBarcode = "2222222";
+            if (IsExist(strBarcode))
+            {
+                Log.WriteMessage(string.Format("数据已经存在 {0}", strBarcode));
+            }
+            else
+            {
+                Log.WriteMessage(string.Format("数据不存在 {0}", strBarcode));
+            }
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            AccessHelper.CloseDatabase();
+        }
+
+        #endregion
+
+
     }
 }

@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,9 @@
     <Reference Include="NLog">
       <HintPath>lib\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="NModbus4">
+      <HintPath>lib\NModbus4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -49,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessHelper.cs" />
     <Compile Include="Communication_TcpClient.cs" />
     <Compile Include="Communication_TcpServer.cs" />
     <Compile Include="ComSerialPort.cs" />
@@ -56,6 +61,7 @@
     <Compile Include="Dog.cs" />
     <Compile Include="httpHelper.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="ModbusHelper.cs" />
     <Compile Include="MyWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WSClient.cs" />

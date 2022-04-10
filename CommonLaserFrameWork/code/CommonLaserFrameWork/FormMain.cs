@@ -1,5 +1,6 @@
 ﻿using CommonLaserFrameWork.SplashScreen;
-using CommonLibrarySharp;
+using CommonLibrarySharp.Cfg;
+using CommonLibrarySharp.WriteLog;
 using MyMarkEzd;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,11 @@ namespace CommonLaserFrameWork
         private Configure _configure = new Configure();
         // 流程控制
         private static bool _IsMarking = false;
-        // 增加脚踏
         private static MyJCZ _MarkJcz = new MyJCZ();
         private static bool _exit = false;
+        // 增加脚踏 (端口+高低电平有效值)
         private static int _start_port = 0;
+        private static int _valid = 0;
         public FormMain()
         {
             SplashScreen.SplashScreen.Show(typeof(FormSplashShow));
@@ -48,23 +50,27 @@ namespace CommonLaserFrameWork
 
         private void ThreadWork()
         {
-            bool nBegin = false;
-            bool nEnd = false;
+            bool bBegin = false;
+            bool bEnd = false;
             while (!_exit)
             {
-                nBegin = _MarkJcz.ReadPort(_start_port);
-
-                if ((nBegin && !nEnd))
+                int dwInport = 0;
+                if (_MarkJcz.ReadInPortValue(ref dwInport))
                 {
-                    Log.WriteMessage("检测到脚踏信号");
-                    MarkProcess();
-                    nBegin = false;
-                    nEnd = false;
-                    continue;
-                }
-                else
-                {
-                    nEnd = nBegin;
+                    // 自行根据输入端口的值， 去判断其他端口是否有信号 来实现多文档io打标功能
+                    bBegin = ((dwInport >> _start_port) & 0x01) == _valid ? true : false;
+                    if ((bBegin && !bEnd))
+                    {
+                        Log.WriteMessage("检测到脚踏信号");
+                        MarkProcess();
+                        bBegin = false;
+                        bEnd = false;
+                        continue;
+                    }
+                    else
+                    {
+                        bEnd = bBegin;
+                    }
                 }
                 Thread.Sleep(10);
             }
@@ -138,7 +144,8 @@ namespace CommonLaserFrameWork
         private void ReadConfig()
         {
             textBox_model.Text = _configure.ReadConfig("SET", "EzdModel", "");
-            _start_port = _configure.ReadConfig("IO", "StartPort", 4);
+            _start_port = _configure.ReadConfig("INPORT", "StartPort", 4);
+            _valid = _configure.ReadConfig("INPORT", "Valid", 0);
         }
 
         private void WriteConfig()

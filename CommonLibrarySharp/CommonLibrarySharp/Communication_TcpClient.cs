@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
-namespace CommonLibrarySharp
+namespace CommonLibrarySharp.Tcp
 {
     /*
         同步 客户端
@@ -63,7 +63,7 @@ namespace CommonLibrarySharp
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Trace.WriteLine(ex.Message);
                 return false;
@@ -133,7 +133,7 @@ namespace CommonLibrarySharp
                 _stream.Write(bWrite, 0, bWrite.Length);
                 _stream.Flush();
             }
-            catch (System.ObjectDisposedException ex)
+            catch (ObjectDisposedException ex)
             {
                 //断开了
                 ErrorMessage = "socket is closed:" + ex.Message;

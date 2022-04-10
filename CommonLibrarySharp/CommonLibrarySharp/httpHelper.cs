@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CommonLibrarySharp.WriteLog;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace CommonLibrarySharp
+namespace CommonLibrarySharp.http
 {
     public class httpHelper
     {
@@ -100,7 +100,7 @@ namespace CommonLibrarySharp
                 if (!string.IsNullOrEmpty(buffer.ToString()))
                 {
                     byte[] postData = code.GetBytes(buffer.ToString());
-                    System.IO.Stream reqStream = wbRequest.GetRequestStream();
+                    Stream reqStream = wbRequest.GetRequestStream();
                     reqStream.Write(postData, 0, postData.Length);
                     reqStream.Close();
                 }

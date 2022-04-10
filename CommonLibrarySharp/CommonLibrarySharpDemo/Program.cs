@@ -13,7 +13,9 @@ namespace CommonLibrarySharpDemo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (DOG.DogDLl.HasDog())
+#if !DEBUG
+            if (DogDLl.HasDog())
+#endif
             {
                 Application.Run(new FormMain());
             }

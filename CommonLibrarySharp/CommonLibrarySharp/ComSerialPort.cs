@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 
-namespace CommonLibrarySharp
+namespace CommonLibrarySharp.ComPort
 {
     public delegate void RecvInfoHandler(byte[] InBytes);
 

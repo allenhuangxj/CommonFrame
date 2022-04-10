@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CommonLibrarySharp.WriteLog;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace CommonLibrarySharp
+namespace CommonLibrarySharp.Web
 {
     public class MyWebService
     {

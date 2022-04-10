@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace CommonLibrarySharp
+namespace CommonLibrarySharp.Web
 {
     public class WebServiceClient
     {

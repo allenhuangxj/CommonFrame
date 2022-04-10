@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace DOG
+namespace CommonLibrarySharp.HardWareDog
 {
     public unsafe class DogDLl
     {
@@ -38,7 +38,6 @@ namespace DOG
         }
         public static bool HasDog()
         {
-#if !DEBUG
             DogDLl dog = new DogDLl(100);
             try
             {
@@ -63,9 +62,6 @@ namespace DOG
                 MessageBox.Show("Unable to find dog :" + ex.Message.ToString(), "未找到加密狗", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-#else
-            return true;
-#endif
         }
     }
 }

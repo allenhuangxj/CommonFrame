@@ -1,4 +1,4 @@
-﻿using CommonLibrarySharp;
+﻿using CommonLibrarySharp.Cfg;
 using System;
 using System.Windows.Forms;
 

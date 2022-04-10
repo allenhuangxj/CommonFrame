@@ -1085,7 +1085,7 @@ namespace Laser_JCZ
 
             }
         }
-        //IO接口
+        // IO接口
         public static bool ReadPort(ref int nValue)
         {
             if (!mIsInitLaser)
@@ -1104,35 +1104,8 @@ namespace Laser_JCZ
                 }
                 return true;
             }
-
         }
-        public static bool ReadPort(int nPort)
-        {
-            if (!mIsInitLaser)
-            {
-                mLastError = LmcErrCode.LMC1_ERR_NOINITIAL;
-                return false;
-            }
-            int nState = 0;
-            lock (ObjectLock)
-            {
-                LmcErrCode Ret = LMC1_READPORT(ref nState);
-                if (LmcErrCode.LMC1_ERR_SUCCESS != Ret)
-                {
-                    mLastError = Ret;
-                    return false;
-                }
-                if (((nState >> nPort) & 0x01) > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
 
-        }
         public static bool WritePort(int nPort, bool bState)
         {
             if (!mIsInitLaser)

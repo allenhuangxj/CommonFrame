@@ -6,7 +6,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
-namespace CommonLibrarySharp
+namespace CommonLibrarySharp.Tcp
 {
     /*   
      *   使用注意:对于同一个IP创建多个客户端问题，本次封装没有做处理(默认处理最先连接进来的)
