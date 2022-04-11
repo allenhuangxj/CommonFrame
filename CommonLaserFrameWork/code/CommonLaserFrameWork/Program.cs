@@ -9,6 +9,9 @@ namespace CommonLaserFrameWork
     {
         static Mutex m_mutex = new Mutex(true, "7D0EB345-A465-4756-A8E9-9E92A8C4402E");
 
+        // 输出默认日志文件
+        private static Log _log = new Log();
+
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
@@ -38,11 +41,11 @@ namespace CommonLaserFrameWork
             {
                 Exception ex = e.Exception;
                 string strMsg = string.Format(" Application_ThreadException 捕获到未处理异常：{0}\r\n异常信息：{1}\r\n异常堆栈：{2}", ex.GetType(), ex.Message, ex.StackTrace);
-                Log.WriteMessage(strMsg);
+                _log.WriteMessage(strMsg);
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("Application_ThreadException: " + ex.Message);
+                _log.WriteMessage("Application_ThreadException: " + ex.Message);
             }
         }
 
@@ -57,11 +60,11 @@ namespace CommonLaserFrameWork
             {
                 Exception ex = e.ExceptionObject as Exception;
                 string strMsg = string.Format(" CurrentDomain_UnhandledException 捕获到未处理异常：{0}\r\n异常信息：{1}\r\n异常堆栈：{2}", ex.GetType(), ex.Message, ex.StackTrace);
-                Log.WriteMessage(strMsg);
+                _log.WriteMessage(strMsg);
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("CurrentDomain_UnhandledException: " + ex.Message);
+                _log.WriteMessage("CurrentDomain_UnhandledException: " + ex.Message);
             }
         }
     }

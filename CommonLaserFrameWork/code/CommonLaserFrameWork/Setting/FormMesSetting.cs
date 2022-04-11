@@ -6,7 +6,7 @@ namespace CommonLaserFrameWork
 {
     public partial class FormMesSetting : Form
     {
-        private Configure _configure = new Configure();
+        private static Configure _configure = new Configure();
         public FormMesSetting()
         {
             InitializeComponent();

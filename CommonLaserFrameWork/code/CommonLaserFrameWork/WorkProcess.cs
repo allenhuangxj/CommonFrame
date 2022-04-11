@@ -13,7 +13,10 @@ namespace CommonLaserFrameWork
         private static MyJCZ _MarkJcz = new MyJCZ();
         private static PictureBox _pictureBox1;
         private static string _SN = "";
+        // 配置文件
         private static Configure _configure = new Configure();
+        // 输出默认日志文件
+        public static Log _log = null;
 
         // 打开主窗体前的初始化
         public static bool InitForm(PictureBox pictureBox1)
@@ -25,7 +28,7 @@ namespace CommonLaserFrameWork
                 {
                     string strMsg = string.Format("初始化激光器失败,错误信息:{0}", _MarkJcz.GetLastError());
                     MessageBox.Show(strMsg, "初始化激光器失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Log.WriteMessage(strMsg, true);
+                    _log.WriteMessage(strMsg, true);
 
                     return false;
                 }
@@ -33,7 +36,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("CheckBeforeMark 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("CheckBeforeMark 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;
@@ -51,7 +54,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("LoadEzdFile 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("LoadEzdFile 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;
@@ -60,7 +63,7 @@ namespace CommonLaserFrameWork
         // 打标前的校验
         private static bool CheckBeforeMark()
         {
-            Log.WriteMessage("打标前检测");
+            _log.WriteMessage("打标前检测");
             try
             {
 
@@ -68,7 +71,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("CheckBeforeMark 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("CheckBeforeMark 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;
@@ -77,31 +80,31 @@ namespace CommonLaserFrameWork
         // 加载模板替换打标
         private static bool ChangeVariableAndMark()
         {
-            Log.WriteMessage("加载模板并替换打标");
+            _log.WriteMessage("加载模板并替换打标");
             try
             {
                 // 加载模板
                 string strEzdPath = _configure.ReadConfig("SET", "EzdModel", "");
                 if (!_MarkJcz.LoadEzdFile(strEzdPath))
                 {
-                    Log.WriteMessage("加载模板失败:" + strEzdPath, true);
+                    _log.WriteMessage("加载模板失败:" + strEzdPath, true);
                     return false;
                 }
 
-                Log.WriteMessage("加载模板成功:" + strEzdPath);
+                _log.WriteMessage("加载模板成功:" + strEzdPath);
 
                 // 替换打标
-                Log.WriteMessage(string.Format("替换对象:{0}, 对应的替换内容为:{1}", "SN", _SN));
+                _log.WriteMessage(string.Format("替换对象:{0}, 对应的替换内容为:{1}", "SN", _SN));
                 _MarkJcz.ChangeTextByName("SN", _SN);
                 _MarkJcz.ShowPreviewBmp(_pictureBox1);
-                Log.WriteMessage("开始打标");
+                _log.WriteMessage("开始打标");
                 bool bRes = _MarkJcz.Mark();
-                Log.WriteMessage(bRes == true ? "打标成功" : "打标失败");
+                _log.WriteMessage(bRes == true ? "打标成功" : "打标失败");
                 return bRes;
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("ChangeVariableAndMark 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("ChangeVariableAndMark 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;
@@ -113,7 +116,7 @@ namespace CommonLaserFrameWork
             _SN = dicControlValue["SN"].ToString();
             if (string.IsNullOrEmpty(_SN))
             {
-                Log.WriteMessage("请先扫入条码信息", true);
+                _log.WriteMessage("请先扫入条码信息", true);
                 return false;
             }
 
@@ -132,7 +135,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("MarkProcessImpl 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("MarkProcessImpl 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;
@@ -141,7 +144,7 @@ namespace CommonLaserFrameWork
         // 打标后的保存上传等操作
         private static bool UploadAfterMark()
         {
-            Log.WriteMessage("打标后上传保存");
+            _log.WriteMessage("打标后上传保存");
             try
             {
 
@@ -150,7 +153,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("CheckBeforeMark 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("CheckBeforeMark 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;
@@ -168,7 +171,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("CloseForm 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("CloseForm 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return false;

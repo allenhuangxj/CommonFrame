@@ -12,7 +12,9 @@ namespace CommonLaserFrameWork
     public partial class FormMain : Form
     {
         // 通用读取配置文件
-        private Configure _configure = new Configure();
+        private static Configure _configure = new Configure();
+        // 输出默认日志文件
+        private static Log _log = new Log();
         // 流程控制
         private static bool _IsMarking = false;
         private static MyJCZ _MarkJcz = new MyJCZ();
@@ -28,7 +30,8 @@ namespace CommonLaserFrameWork
 
             InitializeComponent();
             // 绑定日志控件  添加 NLog.dll NLog.config 文件到 exe目录即可
-            Log.BindLogControl(richTextBox_Log);
+            _log.BindLogControl(richTextBox_Log);
+            WorkProcess._log = _log;
         }
 
         #region 窗体相关事件
@@ -37,9 +40,9 @@ namespace CommonLaserFrameWork
             ReadConfig();
             if (WorkProcess.InitForm(this.pictureBox_Preview))
             {
-                Log.WriteMessage("初始化成功");
-                Log.WriteMessage(string.Format("脚踏端口:{0}", _start_port));
-                Log.WriteMessage(string.Format("若修改配置文件脚踏端口,需重启软件生效", _start_port));
+                _log.WriteMessage("初始化成功");
+                _log.WriteMessage(string.Format("脚踏端口:{0}", _start_port));
+                _log.WriteMessage(string.Format("若修改配置文件脚踏端口,需重启软件生效", _start_port));
 
                 Thread tMark = new Thread(ThreadWork);
                 tMark.Start();
@@ -61,7 +64,7 @@ namespace CommonLaserFrameWork
                     bBegin = ((dwInport >> _start_port) & 0x01) == _valid ? true : false;
                     if ((bBegin && !bEnd))
                     {
-                        Log.WriteMessage("检测到脚踏信号");
+                        _log.WriteMessage("检测到脚踏信号");
                         MarkProcess();
                         bBegin = false;
                         bEnd = false;
@@ -78,7 +81,7 @@ namespace CommonLaserFrameWork
 
         private void button_hand_Click(object sender, EventArgs e)
         {
-            Log.WriteMessage("手动点击标刻");
+            _log.WriteMessage("手动点击标刻");
             MarkProcess();
         }
 
@@ -99,7 +102,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("FormMain_FormClosing 异常:" + ex.Message, true);
+                _log.WriteMessage("FormMain_FormClosing 异常:" + ex.Message, true);
                 return;
             }
         }
@@ -130,7 +133,7 @@ namespace CommonLaserFrameWork
         {
             if (e.KeyChar == 13)
             {
-                Log.WriteMessage("回车响应标刻");
+                _log.WriteMessage("回车响应标刻");
                 MarkProcess();
             }
         }
@@ -167,7 +170,7 @@ namespace CommonLaserFrameWork
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("GetControlValue 异常:" + ex.Message, true);
+                _log.WriteMessage("GetControlValue 异常:" + ex.Message, true);
             }
 
             return dicControlValue;
@@ -177,23 +180,23 @@ namespace CommonLaserFrameWork
         {
             if (_IsMarking)
             {
-                Log.WriteMessage("上一个打标流程还未完全结束");
+                _log.WriteMessage("上一个打标流程还未完全结束");
                 return false;
             }
 
             _IsMarking = true;
-            Log.WriteMessage("开始执行打标流程");
+            _log.WriteMessage("开始执行打标流程");
 
             try
             {
                 Dictionary<string, string> dicControlValue = GetControlValue();
                 bool bMarkRes = WorkProcess.MarkProcessImpl(dicControlValue);
-                Log.WriteMessage("++++++++++结束本次打标流程++++++++++");
+                _log.WriteMessage("++++++++++结束本次打标流程++++++++++");
                 return bMarkRes;
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("MarkProcess 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("MarkProcess 捕获到异常:{0}", ex.Message.ToString()), true);
             }
             finally
             {
