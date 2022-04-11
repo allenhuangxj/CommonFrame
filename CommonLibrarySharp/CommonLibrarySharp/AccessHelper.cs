@@ -12,6 +12,9 @@ namespace CommonLibrarySharp.AccessDB
         public static bool m_bConnectSuccess = false;
         public static OleDbConnection odcConnection = null;
 
+        // 输出默认日志文件
+        private static Log _log = new Log();
+
         public static string m_strDBpath = System.Windows.Forms.Application.StartupPath + "\\data.mdb";
         /// <summary>
         /// 连接Access数据库
@@ -30,7 +33,7 @@ namespace CommonLibrarySharp.AccessDB
                 // 判断数据库文件是否存在
                 if (!File.Exists(m_strDBpath))
                 {
-                    Log.WriteMessage("access 数据库文件不存在:" + m_strDBpath, true);
+                    _log.WriteMessage("access 数据库文件不存在:" + m_strDBpath, true);
                     return false;
                 }
                 // 建立连接  
@@ -38,19 +41,19 @@ namespace CommonLibrarySharp.AccessDB
                 odcConnection = new OleDbConnection(strConn);
                 if (odcConnection.State == ConnectionState.Open)
                 {
-                    Log.WriteMessage("数据库已经处于连接状态");
+                    _log.WriteMessage("数据库已经处于连接状态");
                     m_bConnectSuccess = true;
                     return true;
                 }
                 // 打开连接 
                 odcConnection.Open();
                 m_bConnectSuccess = true;
-                Log.WriteMessage("连接accesss数据库成功");
+                _log.WriteMessage("连接accesss数据库成功");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("连接access数据库捕获到异常:" + ex.Message);
+                _log.WriteMessage("连接access数据库捕获到异常:" + ex.Message);
             }
             return false;
         }
@@ -64,12 +67,12 @@ namespace CommonLibrarySharp.AccessDB
         {
             if (!m_bConnectSuccess)
             {
-                Log.WriteMessage("未连接数据库", true);
+                _log.WriteMessage("未连接数据库", true);
                 return false;
             }
             if (string.IsNullOrEmpty(strSql))
             {
-                Log.WriteMessage("执行的sql不能为空", true);
+                _log.WriteMessage("执行的sql不能为空", true);
                 return false;
             }
 
@@ -85,7 +88,7 @@ namespace CommonLibrarySharp.AccessDB
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ReadData 捕获到异常:" + ex.Message);
+                _log.WriteMessage("ReadData 捕获到异常:" + ex.Message);
             }
             return false;
         }
@@ -99,12 +102,12 @@ namespace CommonLibrarySharp.AccessDB
         {
             if (!m_bConnectSuccess)
             {
-                Log.WriteMessage("未连接数据库", true);
+                _log.WriteMessage("未连接数据库", true);
                 return false;
             }
             if (string.IsNullOrEmpty(strSql))
             {
-                Log.WriteMessage("执行的sql不能为空", true);
+                _log.WriteMessage("执行的sql不能为空", true);
                 return false;
             }
 
@@ -128,7 +131,7 @@ namespace CommonLibrarySharp.AccessDB
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("IsExist 捕获到异常:" + ex.Message);
+                _log.WriteMessage("IsExist 捕获到异常:" + ex.Message);
             }
             return false;
         }
@@ -142,12 +145,12 @@ namespace CommonLibrarySharp.AccessDB
         {
             if (!m_bConnectSuccess)
             {
-                Log.WriteMessage("未连接数据库", true);
+                _log.WriteMessage("未连接数据库", true);
                 return false;
             }
             if (string.IsNullOrEmpty(strSql))
             {
-                Log.WriteMessage("执行的sql不能为空", true);
+                _log.WriteMessage("执行的sql不能为空", true);
                 return false;
             }
 
@@ -159,7 +162,7 @@ namespace CommonLibrarySharp.AccessDB
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ExecuteNonQuery 捕获到异常:" + ex.Message);
+                _log.WriteMessage("ExecuteNonQuery 捕获到异常:" + ex.Message);
             }
             return false;
         }
@@ -177,12 +180,12 @@ namespace CommonLibrarySharp.AccessDB
                     odcConnection.Close();
                 }
                 m_bConnectSuccess = false;
-                Log.WriteMessage("关闭数据库成功");
+                _log.WriteMessage("关闭数据库成功");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("CloseDatabase 捕获到异常:" + ex.Message);
+                _log.WriteMessage("CloseDatabase 捕获到异常:" + ex.Message);
             }
             return false;
         }
@@ -229,7 +232,7 @@ namespace CommonLibrarySharp.AccessDB
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ShowTableToListView 捕获到异常:" + ex.Message);
+                _log.WriteMessage("ShowTableToListView 捕获到异常:" + ex.Message);
             }
         }
 
@@ -249,7 +252,7 @@ namespace CommonLibrarySharp.AccessDB
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ShowTableDataGridView 捕获到异常:" + ex.Message);
+                _log.WriteMessage("ShowTableDataGridView 捕获到异常:" + ex.Message);
             }
         }
 

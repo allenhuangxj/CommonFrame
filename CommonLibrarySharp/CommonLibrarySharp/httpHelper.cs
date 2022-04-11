@@ -11,6 +11,9 @@ namespace CommonLibrarySharp.http
 {
     public class httpHelper
     {
+        // 输出默认日志文件
+        private static Log _log = new Log();
+
         public static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {  // 总是接受  
             return true;
@@ -48,7 +51,7 @@ namespace CommonLibrarySharp.http
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("CommonUrl 捕获到异常:" + ex.Message, true);
+                _log.WriteMessage("CommonUrl 捕获到异常:" + ex.Message, true);
             }
             return result;
         }
@@ -66,7 +69,7 @@ namespace CommonLibrarySharp.http
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | (SecurityProtocolType)768 | (SecurityProtocolType)3072;
                 }
 
-                Log.WriteMessage("HttpPostFormData 请求url为:" + url);
+                _log.WriteMessage("HttpPostFormData 请求url为:" + url);
 
                 Encoding code = Encoding.GetEncoding("utf-8");
                 HttpWebRequest wbRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -94,8 +97,8 @@ namespace CommonLibrarySharp.http
                 }
 
                 string strParam = buffer.ToString();
-                Log.WriteMessage("HttpPost 请求参数为:");
-                Log.WriteMessage(strParam);
+                _log.WriteMessage("HttpPost 请求参数为:");
+                _log.WriteMessage(strParam);
 
                 if (!string.IsNullOrEmpty(buffer.ToString()))
                 {
@@ -116,7 +119,7 @@ namespace CommonLibrarySharp.http
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("HttpPost 捕获到异常:" + ex.Message, true);
+                _log.WriteMessage("HttpPost 捕获到异常:" + ex.Message, true);
             }
             return result;
         }
@@ -127,24 +130,24 @@ namespace CommonLibrarySharp.http
         {
             try
             {
-                Log.WriteMessage("HttpPostJsonData 请求url为:" + requestURL);
+                _log.WriteMessage("HttpPostJsonData 请求url为:" + requestURL);
 
                 if (string.IsNullOrEmpty(requestURL))
                 {
-                    Log.WriteMessage("HttpPostJsonData, empty URL!", true);
+                    _log.WriteMessage("HttpPostJsonData, empty URL!", true);
                     return "";
                 }
 
                 if (string.IsNullOrEmpty(json))
                 {
-                    Log.WriteMessage("HttpPostJsonData, empty json!", true);
+                    _log.WriteMessage("HttpPostJsonData, empty json!", true);
                     return "";
                 }
 
                 //json格式请求数据
                 string requestData = json;
-                Log.WriteMessage("HttpPostJsonData 请求的json数据为:");
-                Log.WriteMessage(requestData);
+                _log.WriteMessage("HttpPostJsonData 请求的json数据为:");
+                _log.WriteMessage(requestData);
                 //拼接URL
                 string serviceUrl = requestURL;
 
@@ -197,9 +200,9 @@ namespace CommonLibrarySharp.http
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("HttpPostJsonData 捕获到异常:" + ex.Message, true);
-                Log.WriteMessage("requestURL:" + requestURL, true);
-                Log.WriteMessage("json:" + json, true);
+                _log.WriteMessage("HttpPostJsonData 捕获到异常:" + ex.Message, true);
+                _log.WriteMessage("requestURL:" + requestURL, true);
+                _log.WriteMessage("json:" + json, true);
             }
 
             return "";

@@ -6,6 +6,9 @@ namespace CommonLibrarySharp.Web
 {
     public class MyWebService
     {
+        // 输出默认日志文件
+        private static Log _log = new Log();
+
         public static string RequestWebService(string strUrl, string strMethod, List<WebServiceClient.Parameter> lstParameters)
         {
             string strRes = "";
@@ -21,14 +24,14 @@ namespace CommonLibrarySharp.Web
 
                 for (int i = 0; i < lstParameters.Count; i++)
                 {
-                    Log.WriteMessage(string.Format("请求参数:{0}, 对应的值为:{1}", lstParameters[i].Name, lstParameters[i].Value));
+                    _log.WriteMessage(string.Format("请求参数:{0}, 对应的值为:{1}", lstParameters[i].Name, lstParameters[i].Value));
                 }
 
                 strRes = client.InvokeService();
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("RequestWebService 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("RequestWebService 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return strRes;
@@ -51,14 +54,14 @@ namespace CommonLibrarySharp.Web
 
                 for (int i = 0; i < lstParameters.Count; i++)
                 {
-                    Log.WriteMessage(string.Format("请求参数:{0}, 对应的值为:{1}", lstParameters[i].Name, lstParameters[i].Value));
+                    _log.WriteMessage(string.Format("请求参数:{0}, 对应的值为:{1}", lstParameters[i].Name, lstParameters[i].Value));
                 }
 
                 strRes = client.InvokeService();
             }
             catch (Exception ex)
             {
-                Log.WriteMessage(string.Format("RequestWebService 捕获到异常:{0}", ex.Message.ToString()), true);
+                _log.WriteMessage(string.Format("RequestWebService 捕获到异常:{0}", ex.Message.ToString()), true);
             }
 
             return strRes;

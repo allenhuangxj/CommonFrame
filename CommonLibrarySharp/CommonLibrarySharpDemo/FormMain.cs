@@ -20,7 +20,13 @@ namespace CommonLibrarySharpDemo
     public partial class FormMain : Form
     {
         // 通用读取配置文件
-        private Configure _configure = new Configure();
+        private static Configure _configure = new Configure();
+
+        // 输出默认日志文件
+        private static Log _log = new Log();
+        // 如果项目有另外日志输出要求，则指定另外自定义配置日志文件
+        private static string _Config_path = Application.StartupPath + "\\NLog.other.config";
+        private static Log _log_other = new Log(_Config_path);
 
         public FormMain()
         {
@@ -30,8 +36,11 @@ namespace CommonLibrarySharpDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             // 绑定日志控件  添加 NLog.dll NLog.config 文件到 exe目录即可
-            Log.BindLogControl(richTextBox_Log);
-            Log.WriteMessage("开启软件");
+            _log.BindLogControl(richTextBox_Log);
+            _log.WriteMessage("开启软件");
+
+            _log_other.BindLogControl(richTextBox_Log);
+            _log_other.WriteMessage("开启软件");
 
             Thread ThreadLog = new Thread(TestThreadLog);
             ThreadLog.Start();
@@ -43,11 +52,13 @@ namespace CommonLibrarySharpDemo
             {
                 if (i % 2 == 0)
                 {
-                    Log.WriteMessage("thread info msg" + i.ToString(), true);
+                    _log.WriteMessage("thread info msg" + i.ToString(), true);
+                    _log_other.WriteMessage("thread info msg" + i.ToString(), true);
                 }
                 else
                 {
-                    Log.WriteMessage("thread info msg" + i.ToString());
+                    _log.WriteMessage("thread info msg" + i.ToString());
+                    _log_other.WriteMessage("thread info msg" + i.ToString());
                 }
             }
         }
@@ -84,13 +95,13 @@ namespace CommonLibrarySharpDemo
                     if (SendMsgToServer(strSend, ref strReceiveMsg, ref strErrorMsg))
                     {
                         string strMsg = string.Format("服务器返回数据成功: {0}", strReceiveMsg);
-                        Log.WriteMessage(strMsg);
+                        _log.WriteMessage(strMsg);
                     }
                     else
                     {
                         // 失败
                         string strMsg = string.Format("服务器返回数据失败,错误信息: {0}", strErrorMsg);
-                        Log.WriteMessage(strMsg);
+                        _log.WriteMessage(strMsg);
                     }
                     break;
             }
@@ -155,20 +166,20 @@ namespace CommonLibrarySharpDemo
 
                 if (!m_SerialPort.Open())
                 {
-                    Log.WriteMessage("打开串口失败", true);
+                    _log.WriteMessage("打开串口失败", true);
                     return false;
                 }
 
                 m_SerialPort.DataEvent -= new RecvInfoHandler(m_comData_DataEvent);
                 m_SerialPort.DataEvent += new RecvInfoHandler(m_comData_DataEvent);
 
-                Log.WriteMessage("串口打开成功，等待接受串口指令数据");
+                _log.WriteMessage("串口打开成功，等待接受串口指令数据");
 
                 return true;
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("串口打开失败:" + ex.Message, true);
+                _log.WriteMessage("串口打开失败:" + ex.Message, true);
             }
             return false;
         }
@@ -189,7 +200,7 @@ namespace CommonLibrarySharpDemo
             new Thread(delegate ()
             {
                 string strResult = ByteToString(InBytes);
-                Log.WriteMessage("接收到串口原数据为:" + strResult);
+                _log.WriteMessage("接收到串口原数据为:" + strResult);
 
                 // 根据返回的原数据 自行 去判断是否有起始符 结束符，截取数据等等
                 int nLength = InBytes.Length;
@@ -197,7 +208,7 @@ namespace CommonLibrarySharpDemo
                 Array.Copy(InBytes, 1, bLastData, 0, nLength - 2);
 
                 string strInfo = Encoding.Default.GetString(bLastData);
-                Log.WriteMessage("截取起始结束符以后的数据为:" + strInfo);
+                _log.WriteMessage("截取起始结束符以后的数据为:" + strInfo);
 
                 // 处理业务数据逻辑
 
@@ -209,11 +220,11 @@ namespace CommonLibrarySharpDemo
             {
                 if (m_SerialPort == null)
                 {
-                    Log.WriteMessage("串口处于未打开状态,取消发送数据", true);
+                    _log.WriteMessage("串口处于未打开状态,取消发送数据", true);
                     return;
                 }
 
-                Log.WriteMessage("回复串口数据为:" + strSendInfo);
+                _log.WriteMessage("回复串口数据为:" + strSendInfo);
 
                 // 根据实际情况 看是否需要添加起始结束符 
                 byte[] bsend = new byte[strSendInfo.Length + 2];
@@ -228,16 +239,16 @@ namespace CommonLibrarySharpDemo
 
                 if (!m_SerialPort.SendData(bsend))
                 {
-                    Log.WriteMessage("发送串口数据失败", true);
+                    _log.WriteMessage("发送串口数据失败", true);
                 }
                 else
                 {
-                    Log.WriteMessage("回复串口数据成功");
+                    _log.WriteMessage("回复串口数据成功");
                 }
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("SendToCom 捕获到异常:" + ex.Message);
+                _log.WriteMessage("SendToCom 捕获到异常:" + ex.Message);
             }
         }
         #endregion
@@ -261,23 +272,23 @@ namespace CommonLibrarySharpDemo
             _TcpServer.closeClientEvent += new CloseClientEventHandler(m_Server_closeClientEvent);
 
             string strMsg = string.Format("启动服务端 {0}:{1}", strIPLocate, nPort.ToString());
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
         private void m_Server_acceptClientEvent(TcpClient client)
         {
             string strMsg = string.Format("客户端连接 {0}:{1}", ((IPEndPoint)(client.Client.RemoteEndPoint)).Address.ToString(), ((IPEndPoint)(client.Client.RemoteEndPoint)).Port.ToString());
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
 
         private void m_Server_closeClientEvent(TcpClient client)
         {
             string strMsg = string.Format("客户端关闭 {0}:{1}", ((IPEndPoint)(client.Client.RemoteEndPoint)).Address.ToString(), ((IPEndPoint)(client.Client.RemoteEndPoint)).Port.ToString());
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
         private void m_Server_reciveClientEvent(TcpClient client, string strRecvData)
         {
             string strMsg = string.Format("接收客户端[{0}:{1}] 数据:{2} ", ((IPEndPoint)(client.Client.RemoteEndPoint)).Address.ToString(), ((IPEndPoint)(client.Client.RemoteEndPoint)).Port.ToString(), strRecvData);
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
             ThreadClientReceiveMsg(client, strRecvData);
         }
 
@@ -295,7 +306,7 @@ namespace CommonLibrarySharpDemo
                                     ((IPEndPoint)(client.Client.RemoteEndPoint)).Port.ToString(),
                                     strSend, nLen == bSend.Length ? "成功" : "失败");
 
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
         #endregion
 
@@ -324,7 +335,7 @@ namespace CommonLibrarySharpDemo
             bool bRes = ConnectServer(strIP, nPort);
 
             string strMsg = string.Format("连接服务器 {0}:{1}", strIP, nPort.ToString()) + (bRes == true ? "成功" : "失败");
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
 
 
@@ -336,7 +347,7 @@ namespace CommonLibrarySharpDemo
             try
             {
                 string strMsg = string.Format("发送服务器数据为 {0}", strSendMsg);
-                Log.WriteMessage(strMsg);
+                _log.WriteMessage(strMsg);
 
                 if (!_TcpClient.Write(strSendMsg, ref strErrorMsg))
                 {
@@ -365,7 +376,7 @@ namespace CommonLibrarySharpDemo
             catch (Exception ex)
             {
                 strErrorMsg = "读取tcp服务器返回数据异常:" + ex.Message;
-                Log.WriteMessage(strErrorMsg);
+                _log.WriteMessage(strErrorMsg);
             }
 
             return false;
@@ -404,7 +415,7 @@ namespace CommonLibrarySharpDemo
             string strPostType = "GET";   //GET/POST
             string strReceiveMsg = httpHelper.CommonUrl(strUrl, strPostType);
             string strMsg = string.Format("http 服务器返回数据为: {0}", strReceiveMsg);
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
 
         private void btn_PotsBody_Click(object sender, EventArgs e)
@@ -417,7 +428,7 @@ namespace CommonLibrarySharpDemo
             parameters.Add("age", "11");
             string strReceiveMsg = httpHelper.HttpPostFormData(strUrl, parameters);
             string strMsg = string.Format("http 服务器返回数据为: {0}", strReceiveMsg);
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
 
         private void btn_PostJson_Click(object sender, EventArgs e)
@@ -428,7 +439,7 @@ namespace CommonLibrarySharpDemo
             string strJson = "{\"name\": \"hxj\", \"age\": \"111\"}";
             string strReceiveMsg = httpHelper.HttpPostJsonData(strUrl, strJson);
             string strMsg = string.Format("http 服务器返回数据为: {0}", strReceiveMsg);
-            Log.WriteMessage(strMsg);
+            _log.WriteMessage(strMsg);
         }
 
         #endregion
@@ -526,7 +537,7 @@ namespace CommonLibrarySharpDemo
             bool bExist = false;
             if (!AccessHelper.IsExist(strSql, ref bExist))
             {
-                Log.WriteMessage("查询失败:" + strSql, true);
+                _log.WriteMessage("查询失败:" + strSql, true);
                 return false;
             }
             return bExist;
@@ -536,11 +547,11 @@ namespace CommonLibrarySharpDemo
             string strBarcode = "123456";
             if (SaveData(strBarcode))
             {
-                Log.WriteMessage("保存数据成功");
+                _log.WriteMessage("保存数据成功");
             }
             else
             {
-                Log.WriteMessage("保存数据失败", true);
+                _log.WriteMessage("保存数据失败", true);
             }
         }
         private void button6_Click(object sender, EventArgs e)
@@ -548,21 +559,21 @@ namespace CommonLibrarySharpDemo
             string strBarcode = "123456";
             if (IsExist(strBarcode))
             {
-                Log.WriteMessage(string.Format("数据已经存在 {0}", strBarcode));
+                _log.WriteMessage(string.Format("数据已经存在 {0}", strBarcode));
             }
             else
             {
-                Log.WriteMessage(string.Format("数据不存在 {0}", strBarcode));
+                _log.WriteMessage(string.Format("数据不存在 {0}", strBarcode));
             }
 
             strBarcode = "2222222";
             if (IsExist(strBarcode))
             {
-                Log.WriteMessage(string.Format("数据已经存在 {0}", strBarcode));
+                _log.WriteMessage(string.Format("数据已经存在 {0}", strBarcode));
             }
             else
             {
-                Log.WriteMessage(string.Format("数据不存在 {0}", strBarcode));
+                _log.WriteMessage(string.Format("数据不存在 {0}", strBarcode));
             }
         }
         private void button7_Click(object sender, EventArgs e)

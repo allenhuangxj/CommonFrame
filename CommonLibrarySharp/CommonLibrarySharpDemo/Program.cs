@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrarySharp.HardWareDog;
+using System;
 using System.Windows.Forms;
 
 namespace CommonLibrarySharpDemo

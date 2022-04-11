@@ -47,6 +47,9 @@ namespace CommonLibrarySharp.Modbus
         /// 从机号
         /// </summary>
         protected byte _slave_no = 0;
+
+        // 输出默认日志文件
+        protected static Log _log = new Log();
         #endregion
 
         #region 暴露外层调用方法
@@ -61,7 +64,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ReadString 失败:" + ex.Message, true);
+                _log.WriteMessage("ReadString 失败:" + ex.Message, true);
             }
             return false;
         }
@@ -77,7 +80,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("WriteString 失败:" + ex.Message, true);
+                _log.WriteMessage("WriteString 失败:" + ex.Message, true);
             }
             return false;
         }
@@ -92,7 +95,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ReadFloat 失败:" + ex.Message, true);
+                _log.WriteMessage("ReadFloat 失败:" + ex.Message, true);
             }
             return false;
         }
@@ -108,7 +111,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("WriteFloat 失败:" + ex.Message, true);
+                _log.WriteMessage("WriteFloat 失败:" + ex.Message, true);
             }
             return false;
         }
@@ -123,7 +126,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ReadUshort 失败:" + ex.Message, true);
+                _log.WriteMessage("ReadUshort 失败:" + ex.Message, true);
             }
             return false;
         }
@@ -137,7 +140,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("WriteUshort 失败:" + ex.Message, true);
+                _log.WriteMessage("WriteUshort 失败:" + ex.Message, true);
 
             }
             return false;
@@ -154,7 +157,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("ReadInt 失败:" + ex.Message, true);
+                _log.WriteMessage("ReadInt 失败:" + ex.Message, true);
             }
             return false;
         }
@@ -171,7 +174,7 @@ namespace CommonLibrarySharp.Modbus
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("WriteInt 失败:" + ex.Message, true);
+                _log.WriteMessage("WriteInt 失败:" + ex.Message, true);
 
             }
             return false;
@@ -298,11 +301,11 @@ namespace CommonLibrarySharp.Modbus
                 _master.Transport.ReadTimeout = 500;
                 _master.Transport.WriteTimeout = 500;
 
-                Log.WriteMessage("创建 modbus tcp 成功");
+                _log.WriteMessage("创建 modbus tcp 成功");
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("创建 modbus tcp 失败:" + ex.Message, true);
+                _log.WriteMessage("创建 modbus tcp 失败:" + ex.Message, true);
             }
         }
     }
@@ -342,11 +345,11 @@ namespace CommonLibrarySharp.Modbus
                 _master.Transport.ReadTimeout = 500;
                 _master.Transport.WriteTimeout = 500;
 
-                Log.WriteMessage("创建 modbus rtu 成功");
+                _log.WriteMessage("创建 modbus rtu 成功");
             }
             catch (Exception ex)
             {
-                Log.WriteMessage("创建 modbus rtu 失败:" + ex.Message, true);
+                _log.WriteMessage("创建 modbus rtu 失败:" + ex.Message, true);
             }
         }
     }

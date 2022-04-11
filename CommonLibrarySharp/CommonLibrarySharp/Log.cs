@@ -1,4 +1,5 @@
 ﻿using NLog;
+using NLog.Config;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -7,29 +8,50 @@ namespace CommonLibrarySharp.WriteLog
 {
     public class Log
     {
-        public static Logger _Logger = LogManager.GetCurrentClassLogger();
-        private static RichTextBox _richtextBox = null;
-        private static readonly object _Lock = new object();
+        public Logger _Logger = LogManager.GetCurrentClassLogger();
+        private RichTextBox _richtextBox = null;
+        private string _Config_path = Application.StartupPath + "\\NLog.config";
+        private readonly object _Lock = new object();
 
-        public static void BindLogControl(RichTextBox rtBox)
+        public Log(string strConfigPath = "")
+        {
+            if (!string.IsNullOrEmpty(strConfigPath))
+            {
+                _Config_path = strConfigPath;
+            }
+        }
+
+        public void BindLogControl(RichTextBox rtBox)
         {
             _richtextBox = rtBox;
         }
 
-        private static void WriteLog(string strMsg, bool bError = false)
+        private void WriteLog(string strMsg, bool bError = false)
         {
-            if (bError == true)
+            try
             {
-                _Logger.Error(strMsg);
+                lock (_Lock)
+                {
+                    LogManager.Configuration = new XmlLoggingConfiguration(_Config_path);
+
+                    if (bError == true)
+                    {
+                        _Logger.Error(strMsg);
+                    }
+                    else
+                    {
+                        _Logger.Info(strMsg);
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _Logger.Info(strMsg);
+                _Logger.Error("WriteLog catch error:" + ex.Message.ToString());
             }
         }
 
         // 对外暴露的写日志方法
-        public static void WriteMessage(string strLogInfo, bool bError = false)
+        public void WriteMessage(string strLogInfo, bool bError = false)
         {
             try
             {
